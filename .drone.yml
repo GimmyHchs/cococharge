@@ -1,0 +1,53 @@
+clone:
+    git:
+        image: plugins/git
+        tags: true
+
+pipeline:
+    backend:
+        image: laradock/workspace:2.2-7.1
+        commands:
+            - php -v
+            - composer -V
+            - cp .env.example .env
+            - composer install --prefer-dist
+            - php artisan key:generate
+
+    pre-build:
+        image: docker:git
+        pull: true
+        commands:
+            - rm -rf $DRONE_WORKSPACE/database/seeds
+            - rm -rf $DRONE_WORKSPACE/node_modules
+            - cp -R $DRONE_WORKSPACE $DRONE_WORKSPACE/../src
+            - mv $DRONE_WORKSPACE/../src $DRONE_WORKSPACE
+        when:
+            branch: [ master ]
+
+    publish_dockerhub_production:
+        image: plugins/docker
+        repo: hchstera/cococharge
+        dockerfile: ./src/Dockerfile
+        tags:
+            - latest
+            - ${DRONE_COMMIT_BRANCH}
+            - ${DRONE_COMMIT_BRANCH}-${DRONE_BUILD_NUMBER}
+        secrets: [ docker_username, docker_password ]
+        when:
+            event: [ push ]
+            branch: [ master ]
+
+    ## notifications
+    notify_line:
+        image: appleboy/drone-line
+        secrets: [ plugin_channel_secret, plugin_channel_token, plugin_to_group ]
+        when:
+            status: [ success, failure ]
+        event: [ push ]
+        message: |
+            {{#success build.status}}
+                {{build.author}} trigger build #{{build.number}}
+                {{repo.name}} by {{build.event}} to branch {{build.branch}} succeeded.
+            {{else}}
+                build {{ build.number }} failed. Fix me please.
+            {{/success}}
