@@ -16,9 +16,15 @@ pipeline:
     pre-build:
         image: docker:git
         pull: true
+        secrets: [ ssh_key ]
         commands:
+            - mkdir -p ~/.ssh
+            - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+            - echo -n "$SSH_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa
+            - git clone git@github.com:g9308370/cococharge-env.git
             - rm -rf $DRONE_WORKSPACE/database/seeds
             - rm -rf $DRONE_WORKSPACE/node_modules
+            - cp cococharge-env/${DRONE_COMMIT_BRANCH}/.env $DRONE_WORKSPACE/.env
             - cp -R $DRONE_WORKSPACE $DRONE_WORKSPACE/../src
             - mv $DRONE_WORKSPACE/../src $DRONE_WORKSPACE
         when:
