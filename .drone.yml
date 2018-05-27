@@ -72,6 +72,7 @@ pipeline:
         secrets: [ plugin_channel_secret, plugin_channel_token, plugin_to_group ]
         when:
             status: [ success, failure ]
+            branch: [ master ]
         event: [ push ]
         message: |
             {{#success build.status}}
