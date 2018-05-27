@@ -42,12 +42,16 @@ pipeline:
             - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
             - echo -n "$SSH_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa
             - cd $DRONE_WORKSPACE/src
-            - standard-version
+            - git config --global user.email "drone@hchs-service.tk"
+            - git config --global user.name "drone"
+            - git remote set-url origin git@github.com:g9308370/cococharge.git
+            - git remote -v
+            - standard-version -m "chore(release) %s [SKIP CI]"
             - git push --follow-tags origin ${DRONE_COMMIT_BRANCH}
         when:
             branch: [ master ]
 
-    publish_dockerhub:
+    publish-dockerhub:
         image: plugins/docker
         repo: hchstera/cococharge
         dockerfile: ./src/Dockerfile
@@ -59,7 +63,6 @@ pipeline:
         when:
             event: [ push ]
             branch: [ master ]
-
 
     deploy:
         image: appleboy/drone-ssh
@@ -84,7 +87,7 @@ pipeline:
 
 
     ## notifications
-    notify_line:
+    notify-line:
         image: appleboy/drone-line
         secrets: [ plugin_channel_secret, plugin_channel_token, plugin_to_group ]
         when:
