@@ -1,0 +1,43 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->exclude('somedir')
+    ->notPath('src/Symfony/Component/Translation/Tests/fixtures/resources.php')
+    ->in(__DIR__);
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@PSR2' => true,
+        '@Symfony' => true,
+        'class_definition' => [
+            'singleLine' => true,
+        ],
+        'method_argument_space' => [
+            'ensure_fully_multiline' => true,
+        ],
+        'increment_style' => [
+            'style' => 'post',
+        ],
+        'cast_spaces' => [
+            'space' => 'none',
+        ],
+        'concat_space' => [
+            'spacing' => 'one',
+        ],
+        'phpdoc_align' => [
+            'tags' => ['method', 'property', 'return', 'throws', 'type', 'var'],
+        ],
+        'phpdoc_order' => true,
+        'phpdoc_to_comment' => false,
+        'ternary_to_null_coalescing' => true,
+        'no_useless_else' => true,
+        'no_useless_return' => true,
+        'ordered_class_elements' => true,
+        'ordered_imports' => true,
+        'yoda_style' => false,
+        'array_syntax' => [
+            'syntax' => 'short',
+        ],
+    ])
+    ->setFinder($finder)
+;
