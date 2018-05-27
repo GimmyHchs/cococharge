@@ -5,13 +5,16 @@ clone:
 
 pipeline:
     backend:
-        image: laradock/workspace:2.2-7.1
+        image: hchstera/laravel-workspace
         commands:
             - php -v
             - composer -V
+            - phpcs --version
             - cp .env.example .env
             - composer install --prefer-dist
             - php artisan key:generate
+            - phpcs --standard=PSR2 -p app/ tests/ config/ routes/
+            - ./vendor/bin/phpunit -d memory_limit=512M
 
     pre-build:
         image: docker:git
@@ -30,6 +33,20 @@ pipeline:
         when:
             branch: [ master ]
 
+    pre-production:
+        image: hchstera/laravel-workspace
+        pull: true
+        secrets: [ ssh_key ]
+        commands:
+            - mkdir -p ~/.ssh
+            - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+            - echo -n "$SSH_KEY" > ~/.ssh/id_rsa && chmod 0600 ~/.ssh/id_rsa
+            - cd $DRONE_WORKSPACE/src
+            - standard-version
+            - git push --follow-tags origin ${DRONE_COMMIT_BRANCH}
+        when:
+            branch: [ master ]
+
     publish_dockerhub:
         image: plugins/docker
         repo: hchstera/cococharge
@@ -42,6 +59,7 @@ pipeline:
         when:
             event: [ push ]
             branch: [ master ]
+
 
     deploy:
         image: appleboy/drone-ssh
@@ -71,6 +89,7 @@ pipeline:
         secrets: [ plugin_channel_secret, plugin_channel_token, plugin_to_group ]
         when:
             status: [ success, failure ]
+            branch: [ master ]
         event: [ push ]
         message: |
             {{#success build.status}}
