@@ -9,10 +9,12 @@ pipeline:
         commands:
             - php -v
             - composer -V
+            - phpcs --version
             - cp .env.example .env
             - composer install --prefer-dist
             - php artisan key:generate
             - phpcs --standard=PSR2 -p app/ tests/ config/ routes/
+            - ./vendor/bin/phpunit -d memory_limit=512M
 
     pre-build:
         image: docker:git
