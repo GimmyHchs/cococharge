@@ -2,6 +2,8 @@
 
 namespace App\Eloquents\Account;
 
+use App\Eloquents\Line\LineUser;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -30,7 +32,10 @@ class User extends Authenticatable
         'updated_at',
     ];
 
-    public function lineUser()
+    /**
+     * @return HasOne
+     */
+    public function lineUser(): HasOne
     {
         return $this->hasOne(LineUser::class);
     }

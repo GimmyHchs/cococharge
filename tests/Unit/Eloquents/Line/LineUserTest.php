@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit\Records;
+namespace Tests\Unit\Eloquents\Line;
 
-use App\Eloquents\Account\LineUser;
 use App\Eloquents\Account\User;
+use App\Eloquents\Line\LineUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

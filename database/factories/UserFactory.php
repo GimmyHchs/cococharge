@@ -1,6 +1,5 @@
 <?php
 
-use App\Eloquents\Account\LineUser;
 use App\Eloquents\Account\User;
 use Faker\Generator as Faker;
 
@@ -21,11 +20,5 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt('secret'),
         'remember_token' => str_random(10),
-    ];
-});
-
-$factory->define(LineUser::class, function (Faker $faker) {
-    return [
-        'line_id' => str_random(20),
     ];
 });
