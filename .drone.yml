@@ -31,7 +31,7 @@ pipeline:
             - cp -R $DRONE_WORKSPACE $DRONE_WORKSPACE/../src
             - mv $DRONE_WORKSPACE/../src $DRONE_WORKSPACE
         when:
-            branch: [ master ]
+            branch: [ master, develop ]
 
     pre-production:
         image: hchstera/laravel-workspace
@@ -58,11 +58,10 @@ pipeline:
         tags:
             - latest
             - ${DRONE_COMMIT_BRANCH}
-            - ${DRONE_COMMIT_BRANCH}-${DRONE_BUILD_NUMBER}
         secrets: [ docker_username, docker_password ]
         when:
             event: [ push ]
-            branch: [ master ]
+            branch: [ master, develop ]
 
     deploy:
         image: appleboy/drone-ssh
@@ -83,7 +82,7 @@ pipeline:
             - docker network prune -f
         when:
             event: [ push ]
-            branch: [ master ]
+            branch: [ master, develop ]
 
 
     ## notifications
