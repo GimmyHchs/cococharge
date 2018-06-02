@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Barryvdh\Debugbar\ServiceProvider as DebugBarServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,6 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        URL::forceRootUrl(config('app.url'));
+        URL::forceScheme(config('app.scheme'));
     }
 
     /**
