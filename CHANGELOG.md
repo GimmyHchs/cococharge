@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/g9308370/cococharge/compare/v0.1.0...v0.2.0) (2018-06-02)
+
+
+### Features
+
+* **'view':** change welcome page text ([50a201b](https://github.com/g9308370/cococharge/commit/50a201b))
+* **drone:** add develop to deploy ([34285c0](https://github.com/g9308370/cococharge/commit/34285c0))
+* **http:** add http&https setting, force to use config's host url ([10da9ff](https://github.com/g9308370/cococharge/commit/10da9ff))
+* **line:** add HookeventParser ([6ac9090](https://github.com/g9308370/cococharge/commit/6ac9090))
+* **line:** add line eloquents & relations ([afb462a](https://github.com/g9308370/cococharge/commit/afb462a))
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2018-05-27)
 
