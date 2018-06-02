@@ -1,15 +1,14 @@
 <?php
 
-namespace Tests\Unit\Service\Line;
+namespace Tests\Unit\Services\Line;
 
-use App\Service\Line\HookeventParser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Services\Line\HookeventParser;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class HookevnetParserTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use RefreshDatabase;
 
     protected $mockJson;
 

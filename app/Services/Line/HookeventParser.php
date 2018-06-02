@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Line;
+namespace App\Services\Line;
 
 use App\Eloquents\Line\Hookevent;
 use Illuminate\Support\Collection;
