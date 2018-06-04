@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/g9308370/cococharge/compare/v0.2.0...v0.2.1) (2018-06-04)
+
+
+### Bug Fixes
+
+* **drone:** user private dockerhub repo ([1913fff](https://github.com/g9308370/cococharge/commit/1913fff))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/g9308370/cococharge/compare/v0.1.0...v0.2.0) (2018-06-02)
 
