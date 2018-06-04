@@ -68,8 +68,10 @@ pipeline:
         host: 209.97.168.149
         username: root
         command_timeout: 300
-        secrets: [ plugin_ssh_key ]
+        secrets: [ plugin_ssh_key, docker_username, docker_password ]
+        envs: [ docker_username, docker_password ]
         script:
+            - docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
             - cd /var/www
             - git -C cococharge-docker pull || git clone git@github.com:g9308370/cococharge-docker.git
             - cd cococharge-docker/${DRONE_COMMIT_BRANCH}
