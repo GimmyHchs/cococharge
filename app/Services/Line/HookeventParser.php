@@ -17,7 +17,7 @@ class HookeventParser
      *
      * @return Collection
      */
-    public function parse(array $events): Collection
+    public function parse(array $events, bool $isAutoSave = false): Collection
     {
         $this->hookevents = collect([]);
 
@@ -32,6 +32,26 @@ class HookeventParser
             ]));
         }
 
+        if ($isAutoSave) {
+            $this->saveHookevents();
+        }
+
         return $this->hookevents;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFirstReplyToken(): ?string
+    {
+        return optional($this->hookevents->first())->reply_token;
+    }
+
+    /**
+     * save parsed hookevents.
+     */
+    public function saveHookevents(): void
+    {
+        $this->hookevents->each->save();
     }
 }
