@@ -2,35 +2,43 @@
 
 namespace App\Services\Line;
 
-use App\Line\Contracts\LineService;
-use LINE\LINEBot;
-use LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\Response;
 
 /**
  * 回覆Line訊息的服務.
  */
-class ReplyService extends LineService
+class ReplyService
 {
     /**
-     * 回傳目標的token.
-     *
      * @var string
      */
     protected $reply_token;
 
-    public function setToken($reply_token)
+    /**
+     * @var LineBot
+     */
+    protected $bot;
+
+    public function __construct(LineBot $bot)
+    {
+        $this->bot = $bot;
+    }
+
+    /**
+     * @param string $reply_token
+     */
+    public function setToken(string $reply_token): void
     {
         $this->reply_token = $reply_token;
     }
 
-    public function send($message = '你好，這是測試訊息，系統趕工中')
+    /**
+     * @param string $message
+     *
+     * @return Response
+     */
+    public function sendText(string $message): Response
     {
-        $httpClient = new CurlHTTPClient($this->channel_access_token);
-        $bot = new LINEBot($httpClient, ['channelSecret' => $this->channel_secret]);
-        $messageBuilder = new TextMessageBuilder($message);
-        $response = $bot->replyMessage($this->reply_token, $messageBuilder);
-
-        return $response;
+        return $this->bot->replyText($this->reply_token, $message);
     }
 }
