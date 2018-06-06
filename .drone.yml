@@ -93,13 +93,11 @@ pipeline:
         secrets: [ plugin_channel_secret, plugin_channel_token, plugin_to_group ]
         when:
             status: [ success, failure ]
-            branch: [ master ]
         event: [ push ]
         message: |
             {{#success build.status}}
                 {{build.author}} trigger build #{{build.number}}
                 {{repo.name}} by {{build.event}} to branch {{build.branch}} succeeded.
-                you can visit at http://cococharge.hchspersonal.tk
             {{else}}
                 build {{ build.number }} failed. Fix me please.
             {{/success}}
