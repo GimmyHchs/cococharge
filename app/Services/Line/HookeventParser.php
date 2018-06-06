@@ -8,16 +8,21 @@ use Illuminate\Support\Collection;
 class HookeventParser
 {
     /**
+     * @var Collection
+     */
+    private $hookevents;
+
+    /**
      * @param array $events
      *
      * @return Collection
      */
-    public static function parse(array $events): Collection
+    public function parse(array $events): Collection
     {
-        $messages = [];
+        $this->hookevents = collect([]);
 
         foreach ($events as $event) {
-            array_push($messages, new Hookevent([
+            $this->hookevents->push(new Hookevent([
                 'original_data' => $event,
                 'reply_token' => $event['replyToken'],
                 'type' => $event['type'],
@@ -27,6 +32,6 @@ class HookeventParser
             ]));
         }
 
-        return collect($messages);
+        return $this->hookevents;
     }
 }

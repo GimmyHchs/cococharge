@@ -48,9 +48,11 @@ class HookevnetParserTest extends TestCase
 
     public function testParseJson()
     {
-        $collections = HookeventParser::parse($this->mockHookevents);
+        $parser = app(HookeventParser::class);
+        $collections = $parser->parse($this->mockHookevents);
 
         $this->assertEquals('1462629479859', $collections->first()->timestamp);
         $this->assertEquals('message', $collections->first()->type);
+        $this->assertEquals('325708', $collections->first()->message->id);
     }
 }
