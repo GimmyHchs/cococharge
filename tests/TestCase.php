@@ -16,7 +16,7 @@ abstract class TestCase extends BaseTestCase
      *
      * @return Mockery
      */
-    public function initMock(string $class): MockInterface
+    public function mock(string $class): MockInterface
     {
         $mock = Mockery::mock($class);
         $this->app->instance($class, $mock);

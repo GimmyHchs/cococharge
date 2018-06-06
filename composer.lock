@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "760fca1e78b99cd0217aa1457d07b3c3",
+    "content-hash": "377def3b0945b07c525bf369ce4093db",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -548,36 +548,6 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
-            "name": "hchs/judge",
-            "version": "0.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hchstera/judge.git",
-                "reference": "5b996f1750d3ff1e0050f01dd04875cdaa319b35"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hchstera/judge/zipball/5b996f1750d3ff1e0050f01dd04875cdaa319b35",
-                "reference": "5b996f1750d3ff1e0050f01dd04875cdaa319b35",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Hchs\\Judge\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Hchs",
-                    "email": "g9308370@hotmail.com"
-                }
-            ],
-            "description": "Handle Role and Permission in Laravel",
-            "time": "2017-01-17T06:03:50+00:00"
-        },
-        {
             "name": "jakub-onderka/php-console-color",
             "version": "0.1",
             "source": {
@@ -949,6 +919,59 @@
                 "storage"
             ],
             "time": "2018-05-07T08:44:23+00:00"
+        },
+        {
+            "name": "linecorp/line-bot-sdk",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/line/line-bot-sdk-php.git",
+                "reference": "38528aaa3a1abc2809974ab65cdcb7579f9eb927"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/38528aaa3a1abc2809974ab65cdcb7579f9eb927",
+                "reference": "38528aaa3a1abc2809974ab65cdcb7579f9eb927",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "apigen/apigen": "~4.1",
+                "indigophp/hash-compat": "~1.1.0",
+                "phpmd/phpmd": "~2.4",
+                "phpunit/phpunit": "^4.8.24",
+                "squizlabs/php_codesniffer": "~2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LINE\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache License Version 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "moznion",
+                    "email": "moznion@gmail.com"
+                },
+                {
+                    "name": "Satoru Yoshihara",
+                    "email": "vaduz0@gmail.com"
+                }
+            ],
+            "description": "SDK of the LINE BOT API for PHP",
+            "homepage": "https://github.com/line/line-bot-sdk-php",
+            "keywords": [
+                "bot",
+                "line",
+                "sdk"
+            ],
+            "time": "2017-09-20T10:22:04+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2822,6 +2845,36 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
+        },
+        {
+            "name": "hchs/judge",
+            "version": "0.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hchstera/judge.git",
+                "reference": "5b996f1750d3ff1e0050f01dd04875cdaa319b35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hchstera/judge/zipball/5b996f1750d3ff1e0050f01dd04875cdaa319b35",
+                "reference": "5b996f1750d3ff1e0050f01dd04875cdaa319b35",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hchs\\Judge\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Hchs",
+                    "email": "g9308370@hotmail.com"
+                }
+            ],
+            "description": "Handle Role and Permission in Laravel",
+            "time": "2017-01-17T06:03:50+00:00"
         },
         {
             "name": "maximebf/debugbar",

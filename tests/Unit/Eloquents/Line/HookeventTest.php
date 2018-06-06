@@ -37,25 +37,25 @@ class HookEventTest extends TestCase
         $this->assertEquals($event->id, $line_text->fresh()->hookevent_id);
     }
 
-    public function testMessageAccessorAndMutator()
+    public function testMessageCast()
     {
         $event = factory(Hookevent::class)->create();
 
-        $json_string = '{"a":"test","b":1}';
+        $json_array = ['a' => 'test', 'b' => 1];
 
-        $event->message = $json_string;
+        $event->message = $json_array;
 
         $this->assertEquals('test', $event->message->a);
         $this->assertEquals(1, $event->message->b);
     }
 
-    public function testOriginalDataAccessorAndMutator()
+    public function testOriginalDataCast()
     {
         $event = factory(Hookevent::class)->create();
 
-        $json_string = '{"a":"test","b":1}';
+        $json_array = ['a' => 'test', 'b' => 1];
 
-        $event->original_data = $json_string;
+        $event->original_data = $json_array;
 
         $this->assertEquals('test', $event->original_data->a);
         $this->assertEquals(1, $event->original_data->b);
@@ -65,9 +65,9 @@ class HookEventTest extends TestCase
     {
         $event = factory(Hookevent::class)->create();
 
-        $json_string = '{"a":"test","b":1}';
+        $json_array = ['a' => 'test', 'b' => 1];
 
-        $event->source = $json_string;
+        $event->source = $json_array;
 
         $this->assertEquals('test', $event->source->a);
         $this->assertEquals(1, $event->source->b);

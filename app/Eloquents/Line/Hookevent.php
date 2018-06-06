@@ -4,7 +4,6 @@ namespace App\Eloquents\Line;
 
 use App\Eloquents\Eloquent as Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use stdClass;
 
 class Hookevent extends Eloquent
 {
@@ -17,6 +16,12 @@ class Hookevent extends Eloquent
         'timestamp',
         'source',
         'message',
+    ];
+
+    protected $casts = [
+        'message' => 'object',
+        'original_data' => 'object',
+        'source' => 'object',
     ];
 
     /**
@@ -33,35 +38,5 @@ class Hookevent extends Eloquent
     public function addLineText(LineText $line_text): void
     {
         $this->lineTexts()->save($line_text);
-    }
-
-    /**
-     * @param string|null $message
-     *
-     * @return stdClass
-     */
-    public function getMessageAttribute(?string $message): stdClass
-    {
-        return json_decode($message);
-    }
-
-    /**
-     * @param string|null $message
-     *
-     * @return stdClass
-     */
-    public function getOriginalDataAttribute(?string $original_data): stdClass
-    {
-        return json_decode($original_data);
-    }
-
-    /**
-     * @param string|null $message
-     *
-     * @return stdClass
-     */
-    public function getSourceAttribute(?string $source): stdClass
-    {
-        return json_decode($source);
     }
 }
