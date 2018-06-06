@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +12,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * Line Routes.
+ */
+Route::group(['namespace' => 'Line', 'prefix' => 'line', 'as' => 'line.'], function () {
+    Route::post('webhook', 'WebhookController@webhook')->name('webhook');
 });
