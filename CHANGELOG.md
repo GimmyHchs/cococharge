@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/g9308370/cococharge/compare/v0.2.1...v0.3.0) (2018-06-06)
+
+
+### Features
+
+* **line:** add line bot and reply service ([b77c9e9](https://github.com/g9308370/cococharge/commit/b77c9e9))
+* **line:** add line webhook ([d7a1f0f](https://github.com/g9308370/cococharge/commit/d7a1f0f))
+* **line:** get first reply token from hookevents ([62825a0](https://github.com/g9308370/cococharge/commit/62825a0))
+* **line:** wrap LineClient class ([ce1db31](https://github.com/g9308370/cococharge/commit/ce1db31))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/g9308370/cococharge/compare/v0.2.0...v0.2.1) (2018-06-04)
 
