@@ -2,7 +2,7 @@
 
 namespace Tests\Http\Line;
 
-use App\Services\Line\HookeventParser;
+use App\Services\Line\HookeventHandler;
 use App\Services\Line\ReplyService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use LINE\LINEBot\Response;
@@ -14,8 +14,8 @@ class WebhookApiTest extends TestCase
 
     public function testPostToWebhookReturn200()
     {
-        $this->mock(HookeventParser::class)
-            ->shouldReceive('parse')
+        $this->mock(HookeventHandler::class)
+            ->shouldReceive('handle')
             ->once()
             ->andReturn(collect())
             ->shouldReceive('getFirstReplyToken')
