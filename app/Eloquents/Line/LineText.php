@@ -3,7 +3,7 @@
 namespace App\Eloquents\Line;
 
 use App\Contracts\Line\IMessageEvent;
-use App\Eloquents\Eloquent as Eloquent;
+use App\Eloquents\Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LineText extends Eloquent implements IMessageEvent

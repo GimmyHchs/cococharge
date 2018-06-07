@@ -2,7 +2,7 @@
 
 namespace App\Eloquents\Line;
 
-use App\Eloquents\Eloquent as Eloquent;
+use App\Eloquents\Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Hookevent extends Eloquent
