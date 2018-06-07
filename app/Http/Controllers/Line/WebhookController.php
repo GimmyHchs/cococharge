@@ -14,6 +14,7 @@ class WebhookController extends Controller
         $handler->handle($request->events, true);
         $reply_token = $handler->getFirstReplyToken();
         if ($reply_token) {
+            $reply_service->setToken($reply_token);
             $response = $reply_service->sendText('Hello!!');
 
             return response()->json(['message' => 'OK', 'line_response' => $response->getRawBody()]);

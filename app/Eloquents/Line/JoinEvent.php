@@ -21,6 +21,12 @@ class JoinEvent extends Eloquent implements IWebhookEvent
         'origin_data',
     ];
 
+    protected $dates = [
+        'timestamp',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $casts = [
         'origin_data' => 'object',
     ];

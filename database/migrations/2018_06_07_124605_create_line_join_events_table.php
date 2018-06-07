@@ -14,10 +14,10 @@ class CreateLineJoinEventsTable extends Migration
         Schema::create('line_join_events', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type', 15);
-            $table->string('reply_token', 30);
-            $table->integer('timestamp');
+            $table->string('reply_token', 50);
+            $table->timestamp('timestamp');
             $table->string('source_type', 15);
-            $table->string('source_id', 30);
+            $table->string('source_id', 50);
             $table->text('origin_data');
             $table->timestamps();
         });

@@ -64,4 +64,17 @@ class HookeventHandlerTest extends TestCase
 
         $this->assertEquals(0, $collection->count());
     }
+
+    public function testGetFirstToken()
+    {
+        $join_event = factory(JoinEvent::class)->make();
+        $this->mock(JoinParser::class)
+            ->shouldReceive('parse')
+            ->andReturn($join_event);
+        $handler = app(HookeventHandler::class);
+
+        $handler->handle($this->mock_events);
+
+        $this->assertEquals($join_event->reply_token, $handler->getFirstReplyToken());
+    }
 }

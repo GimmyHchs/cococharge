@@ -14,12 +14,14 @@ class JoinParser implements IWebhookParser
      */
     public function parse(array $event, bool $is_auto_save = false): IWebhookEvent
     {
+        $source_type = array_get($event, 'source.type');
+        $source_id = array_get($event, "source.{$source_type}Id");
         $event_join = new JoinEvent([
             'type' => array_get($event, 'type'),
             'reply_token' => array_get($event, 'replyToken'),
-            'timestamp' => array_get($event, 'timestamp'),
-            'source_type' => array_first(array_values($event['source'])),
-            'source_id' => array_last(array_values($event['source'])),
+            'timestamp' => intval(array_get($event, 'timestamp') / 1000),
+            'source_type' => $source_type,
+            'source_id' => $source_id,
             'origin_data' => $event,
         ]);
 

@@ -4,6 +4,7 @@ use App\Eloquents\Line\Hookevent;
 use App\Eloquents\Line\JoinEvent;
 use App\Eloquents\Line\LineText;
 use App\Eloquents\Line\LineUser;
+use Carbon\Carbon;
 use Faker\Generator as Faker;
 
 /*
@@ -46,7 +47,7 @@ $factory->define(JoinEvent::class, function (Faker $faker) {
     return [
         'type' => $faker->word,
         'reply_token' => str_random(20),
-        'timestamp' => str_random(20),
+        'timestamp' => Carbon::now(),
         'source_type' => $faker->word,
         'source_id' => str_random(20),
         'origin_data' => str_random(20),
