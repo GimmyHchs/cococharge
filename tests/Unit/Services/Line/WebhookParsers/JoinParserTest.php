@@ -5,6 +5,7 @@ namespace Tests\Unit\Services\Line\WebhookParsers;
 use App\Eloquents\Line\JoinEvent;
 use App\Services\Line\WebhookParsers\JoinParser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use stdClass;
 use Tests\TestCase;
 
 class JoinTest extends TestCase
@@ -35,6 +36,7 @@ class JoinTest extends TestCase
         $event = $parser->parse($this->mock_event);
 
         $this->assertInstanceOf(JoinEvent::class, $event);
+        $this->assertInstanceOf(stdClass::class, $event->origin_data);
         $this->assertEquals('nHuyWiB7yP5Zw52FIkcQobQuGDXCTA', $event->reply_token);
         $this->assertEquals('join', $event->type);
         $this->assertEquals('1462629479859', $event->timestamp);

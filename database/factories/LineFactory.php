@@ -1,6 +1,7 @@
 <?php
 
 use App\Eloquents\Line\Hookevent;
+use App\Eloquents\Line\JoinEvent;
 use App\Eloquents\Line\LineText;
 use App\Eloquents\Line\LineUser;
 use Faker\Generator as Faker;
@@ -38,5 +39,16 @@ $factory->define(LineText::class, function (Faker $faker) {
         'line_user_id' => factory(LineUser::class)->create()->id,
         'hookevent_id' => factory(Hookevent::class)->create()->id,
         'line_id' => str_random(20),
+    ];
+});
+
+$factory->define(JoinEvent::class, function (Faker $faker) {
+    return [
+        'type' => $faker->word,
+        'reply_token' => str_random(20),
+        'timestamp' => str_random(20),
+        'source_type' => $faker->word,
+        'source_id' => str_random(20),
+        'origin_data' => str_random(20),
     ];
 });

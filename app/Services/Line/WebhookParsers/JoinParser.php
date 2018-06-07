@@ -20,6 +20,7 @@ class JoinParser implements IWebhookParser
             'timestamp' => array_get($event, 'timestamp'),
             'source_type' => array_first(array_values($event['source'])),
             'source_id' => array_last(array_values($event['source'])),
+            'origin_data' => $event,
         ]);
 
         if ($is_auto_save) {

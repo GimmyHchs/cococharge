@@ -18,6 +18,7 @@ class CreateLineJoinEventsTable extends Migration
             $table->integer('timestamp');
             $table->string('source_type', 15);
             $table->string('source_id', 30);
+            $table->text('origin_data');
             $table->timestamps();
         });
     }
