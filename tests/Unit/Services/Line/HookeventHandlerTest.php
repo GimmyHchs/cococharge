@@ -6,6 +6,7 @@ use App\Eloquents\Line\JoinEvent;
 use App\Services\Line\HookeventHandler;
 use App\Services\Line\WebhookParsers\JoinParser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Log;
 use Tests\TestCase;
 
 class HookeventHandlerTest extends TestCase
@@ -42,11 +43,25 @@ class HookeventHandlerTest extends TestCase
             ->with($this->mock_events[0], false)
             ->once()
             ->andReturn($join_event);
-        $parser = app(HookeventHandler::class);
+        $handler = app(HookeventHandler::class);
 
-        $collection = $parser->handle($this->mock_events);
+        $collection = $handler->handle($this->mock_events);
 
         $this->assertEquals(1, $collection->count());
         $this->assertEquals($join_event, $collection->first());
+    }
+
+    public function testHandleUndefinedType()
+    {
+        Log::shouldReceive('error')
+            ->once();
+
+        $this->mock_events[0]['type'] = 'error-type';
+
+        $handler = app(HookeventHandler::class);
+
+        $collection = $handler->handle($this->mock_events);
+
+        $this->assertEquals(0, $collection->count());
     }
 }

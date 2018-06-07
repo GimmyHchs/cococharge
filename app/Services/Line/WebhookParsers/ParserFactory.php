@@ -3,7 +3,7 @@
 namespace App\Services\Line\WebhookParsers;
 
 use App\Contracts\Line\IWebhookParser;
-use Exception;
+use App\Exceptions\Line\UndefinedEventTypeException;
 
 class ParserFactory
 {
@@ -18,7 +18,7 @@ class ParserFactory
             case 'join':
                 return app(JoinParser::class);
             default:
-                throw new Exception("undefined webhook type {$type}");
+                throw new UndefinedEventTypeException("undefined webhook type [{$type}]");
         }
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Services\Line;
 
+use App\Exceptions\Line\UndefinedEventTypeException;
 use App\Services\Line\WebhookParsers\ParserFactory;
 use Illuminate\Support\Collection;
+use Log;
 
 class HookeventHandler
 {
@@ -22,8 +24,12 @@ class HookeventHandler
         $this->hookevents = collect([]);
 
         foreach ($events as $event) {
-            $parser = ParserFactory::make(array_get($event, 'type'));
-            $this->hookevents->push($parser->parse($event, $is_auto_save));
+            try {
+                $parser = ParserFactory::make(array_get($event, 'type'));
+                $this->hookevents->push($parser->parse($event, $is_auto_save));
+            } catch (UndefinedEventTypeException $e) {
+                Log::error($e->getMessage());
+            }
         }
 
         return $this->hookevents;
