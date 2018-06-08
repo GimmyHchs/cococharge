@@ -4,17 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLineJoinEventsTable extends Migration
+class CreateLineLeaveEventsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create('line_join_events', function (Blueprint $table) {
+        Schema::create('line_leave_events', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type', 15);
-            $table->string('reply_token', 50);
             $table->timestamp('timestamp');
             $table->string('source_type', 15);
             $table->string('source_id', 50);
@@ -28,6 +27,6 @@ class CreateLineJoinEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('line_join_events');
+        Schema::dropIfExists('line_leave_events');
     }
 }

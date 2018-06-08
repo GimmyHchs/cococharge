@@ -17,6 +17,8 @@ class ParserFactory
         switch ($type) {
             case 'join':
                 return app(JoinParser::class);
+            case 'leave':
+                return app(LeaveParser::class);
             default:
                 throw new UndefinedEventTypeException("undefined webhook type [{$type}]");
         }
