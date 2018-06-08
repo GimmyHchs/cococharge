@@ -7,6 +7,7 @@ use App\Services\Line\WebhookParsers\JoinParser;
 use App\Services\Line\WebhookParsers\LeaveParser;
 use App\Services\Line\WebhookParsers\FollowParser;
 use App\Services\Line\WebhookParsers\ParserFactory;
+use App\Services\Line\WebhookParsers\UnfollowParser;
 use Exception;
 use Tests\TestCase;
 
@@ -17,6 +18,7 @@ class ParserFactoryTest extends TestCase
         $this->assertInstanceOf(JoinParser::class, ParserFactory::make('join'));
         $this->assertInstanceOf(LeaveParser::class, ParserFactory::make('leave'));
         $this->assertInstanceOf(FollowParser::class, ParserFactory::make('follow'));
+        $this->assertInstanceOf(UnfollowParser::class, ParserFactory::make('unfollow'));
     }
 
     public function testMakeWillThrowException()

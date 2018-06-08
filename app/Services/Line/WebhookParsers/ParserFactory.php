@@ -21,6 +21,8 @@ class ParserFactory
                 return app(LeaveParser::class);
             case 'follow':
                 return app(FollowParser::class);
+            case 'unfollow':
+                return app(UnfollowParser::class);
             default:
                 throw new UndefinedEventTypeException("undefined webhook type [{$type}]");
         }
