@@ -1,12 +1,13 @@
 <?php
 
+use App\Eloquents\Line\FollowEvent;
 use App\Eloquents\Line\Hookevent;
 use App\Eloquents\Line\JoinEvent;
 use App\Eloquents\Line\LeaveEvent;
-use App\Eloquents\Line\FollowEvent;
-use App\Eloquents\Line\UnfollowEvent;
 use App\Eloquents\Line\LineText;
 use App\Eloquents\Line\LineUser;
+use App\Eloquents\Line\MessageEvent;
+use App\Eloquents\Line\UnfollowEvent;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
@@ -81,6 +82,17 @@ $factory->define(FollowEvent::class, function (Faker $faker) {
 $factory->define(UnfollowEvent::class, function (Faker $faker) {
     return [
         'type' => $faker->word,
+        'timestamp' => Carbon::now(),
+        'source_type' => $faker->word,
+        'source_id' => str_random(20),
+        'origin_data' => str_random(20),
+    ];
+});
+
+$factory->define(MessageEvent::class, function (Faker $faker) {
+    return [
+        'type' => $faker->word,
+        'reply_token' => str_random(20),
         'timestamp' => Carbon::now(),
         'source_type' => $faker->word,
         'source_id' => str_random(20),
