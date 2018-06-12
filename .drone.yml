@@ -16,6 +16,12 @@ pipeline:
             - phpcs --standard=PSR2 -p app/ tests/ config/ routes/
             - ./vendor/bin/phpunit -d memory_limit=512M
 
+    codecov:
+        image: robertstettner/drone-codecov
+        secrets: [ codecov_token ]
+        files:
+            - ./clover.xml
+
     pre-build:
         image: docker:git
         pull: true
