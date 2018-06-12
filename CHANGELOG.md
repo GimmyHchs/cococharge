@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/g9308370/cococharge/compare/v0.3.0...v0.4.0) (2018-06-12)
+
+
+### Bug Fixes
+
+* **line:** fix timestamp&reply_token issue ([a2d4439](https://github.com/g9308370/cococharge/commit/a2d4439))
+* **line:** remove useless line classes ([710f46a](https://github.com/g9308370/cococharge/commit/710f46a))
+* **timezone:** set timezone to UTC+8 ([19f2ecc](https://github.com/g9308370/cococharge/commit/19f2ecc))
+
+
+### Features
+
+* **line:** add join parser and join eloquent ([ca5bc0e](https://github.com/g9308370/cococharge/commit/ca5bc0e))
+* **line:** add message generator factory & text generator ([e4023e0](https://github.com/g9308370/cococharge/commit/e4023e0))
+* **line:** add message text & relations ([7db8825](https://github.com/g9308370/cococharge/commit/7db8825))
+* **line:** add message webhook parser ([035f7b2](https://github.com/g9308370/cococharge/commit/035f7b2))
+* **line:** add origin_data into migration and eloquent ([c95fe68](https://github.com/g9308370/cococharge/commit/c95fe68))
+* **line:** add UndefinedEventTypeException. ([544d48d](https://github.com/g9308370/cococharge/commit/544d48d))
+* **line:** build webhook event's interface ([c71e3f8](https://github.com/g9308370/cococharge/commit/c71e3f8))
+* **line:** handle webhook exception ([243c610](https://github.com/g9308370/cococharge/commit/243c610))
+* **line:** nested factory pattern. auto generate line message eloquent ([0310a31](https://github.com/g9308370/cococharge/commit/0310a31))
+* **line:** parse follow webhook event ([586e9f2](https://github.com/g9308370/cococharge/commit/586e9f2))
+* **line:** parse leave webhook event ([71bfa4d](https://github.com/g9308370/cococharge/commit/71bfa4d))
+* **line:** parse unfollow webhook event ([88f6c67](https://github.com/g9308370/cococharge/commit/88f6c67))
+* **log:** add log-viewer ([94806f3](https://github.com/g9308370/cococharge/commit/94806f3))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/g9308370/cococharge/compare/v0.2.1...v0.3.0) (2018-06-06)
 
