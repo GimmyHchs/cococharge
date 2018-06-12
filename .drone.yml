@@ -16,6 +16,12 @@ pipeline:
             - phpcs --standard=PSR2 -p app/ tests/ config/ routes/
             - ./vendor/bin/phpunit -d memory_limit=512M
 
+    codecov:
+        image: robertstettner/drone-codecov
+        secrets: [ codecov_token ]
+        files:
+            - ./clover.xml
+
     pre-build:
         image: docker:git
         pull: true
@@ -93,13 +99,11 @@ pipeline:
         secrets: [ plugin_channel_secret, plugin_channel_token, plugin_to_group ]
         when:
             status: [ success, failure ]
-            branch: [ master ]
         event: [ push ]
         message: |
             {{#success build.status}}
                 {{build.author}} trigger build #{{build.number}}
                 {{repo.name}} by {{build.event}} to branch {{build.branch}} succeeded.
-                you can visit at http://cococharge.hchspersonal.tk
             {{else}}
                 build {{ build.number }} failed. Fix me please.
             {{/success}}
