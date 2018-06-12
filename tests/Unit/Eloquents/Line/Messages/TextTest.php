@@ -13,14 +13,14 @@ class TextTest extends TestCase
 
     public function testFactory()
     {
-        $texts = factory(Text::class, 5)->create();
+        $texts = factory(Text::class, 5)->make();
 
         $this->assertEquals($texts->count(), 5);
     }
 
     public function testBelongsToMessageEvent()
     {
-        $text = factory(Text::class)->create();
+        $text = factory(Text::class)->make();
         $message_event = factory(MessageEvent::class)->create();
 
         $text->messageEvent()->associate($message_event)->save();

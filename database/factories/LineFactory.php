@@ -85,12 +85,17 @@ $factory->define(MessageEvent::class, function (Faker $faker) {
 });
 
 $factory->define(Text::class, function (Faker $faker) {
-    $message_event = factory(MessageEvent::class)->create();
-
     return [
-        'event_id' => $message_event->id,
         'message_id' => (string)$faker->numberBetween(100000, 999999),
         'type' => 'text',
         'text' => $faker->sentence,
+    ];
+});
+
+$factory->state(Text::class, 'withMessageEvent', function () {
+    $event = factory(MessageEvent::class)->create();
+
+    return [
+        'event_id' => $event->id,
     ];
 });

@@ -14,7 +14,7 @@ class CreateLineMessageTextsTable extends Migration
         Schema::create('line_message_texts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('event_id')->unsigned();
-            $table->string('message_id', 10);
+            $table->string('message_id', 20);
             $table->string('type', 15);
             $table->text('text');
             $table->timestamps();

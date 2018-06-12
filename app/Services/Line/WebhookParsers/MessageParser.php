@@ -2,9 +2,11 @@
 
 namespace App\Services\Line\WebhookParsers;
 
+use App\Contracts\Line\IMessage;
 use App\Contracts\Line\IWebhookEvent;
 use App\Contracts\Line\IWebhookParser;
 use App\Eloquents\Line\MessageEvent;
+use App\Services\Line\WebhookParsers\MessageGenerators\GeneratorFactory;
 
 class MessageParser implements IWebhookParser
 {
@@ -27,10 +29,30 @@ class MessageParser implements IWebhookParser
             'origin_data' => $event,
         ]);
 
+        $message = $this->generateMessage(array_get($event, 'message'));
+        $message_relation = $message->getReverseRelationName();
+
         if ($is_auto_save) {
             $join_event->save();
+            $join_event->{$message_relation}()->save($message);
+
+            return $join_event->load($message_relation);
         }
 
+        $join_event->{$message_relation} = $message;
+
         return $join_event;
+    }
+
+    /**
+     * @param array $message
+     *
+     * @return IMessage
+     */
+    private function generateMessage(array $message): IMessage
+    {
+        $generator = GeneratorFactory::make(array_get($message, 'type'));
+
+        return $generator->generate($message);
     }
 }

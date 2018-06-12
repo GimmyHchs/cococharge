@@ -22,4 +22,9 @@ class Text extends Eloquent implements IMessage
     {
         return $this->belongsTo(MessageEvent::class, 'event_id');
     }
+
+    public function getReverseRelationName(): string
+    {
+        return 'text';
+    }
 }
