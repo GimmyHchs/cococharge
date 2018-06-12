@@ -3,6 +3,7 @@
 namespace Tests\Unit\Eloquents\Line;
 
 use App\Eloquents\Line\MessageEvent;
+use App\Eloquents\Line\Messages\Text;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -36,5 +37,15 @@ class MessageEventTest extends TestCase
         $event->timestamp = 1528383950;
 
         $this->assertInstanceOf(Carbon::class, $event->timestamp);
+    }
+
+    public function testHasOneText()
+    {
+        $event = factory(MessageEvent::class)->create();
+        $text = factory(Text::class)->make();
+
+        $event->text()->save($text);
+
+        $this->assertEquals($text->id, $event->text->id);
     }
 }

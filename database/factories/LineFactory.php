@@ -7,6 +7,7 @@ use App\Eloquents\Line\LeaveEvent;
 use App\Eloquents\Line\LineText;
 use App\Eloquents\Line\LineUser;
 use App\Eloquents\Line\MessageEvent;
+use App\Eloquents\Line\Messages\Text;
 use App\Eloquents\Line\UnfollowEvent;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
@@ -22,23 +23,6 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(LineUser::class, function (Faker $faker) {
-    return [
-        'line_id' => str_random(20),
-    ];
-});
-
-$factory->define(Hookevent::class, function (Faker $faker) {
-    return [
-        'original_data' => str_random(20),
-        'reply_token' => str_random(20),
-        'type' => $faker->word,
-        'timestamp' => str_random(20),
-        'source' => $faker->word,
-        'message' => $faker->word,
-    ];
-});
-
 $factory->define(LineText::class, function (Faker $faker) {
     return [
         'line_user_id' => factory(LineUser::class)->create()->id,
@@ -49,7 +33,7 @@ $factory->define(LineText::class, function (Faker $faker) {
 
 $factory->define(JoinEvent::class, function (Faker $faker) {
     return [
-        'type' => $faker->word,
+        'type' => 'join',
         'reply_token' => str_random(20),
         'timestamp' => Carbon::now(),
         'source_type' => $faker->word,
@@ -60,7 +44,7 @@ $factory->define(JoinEvent::class, function (Faker $faker) {
 
 $factory->define(LeaveEvent::class, function (Faker $faker) {
     return [
-        'type' => $faker->word,
+        'type' => 'leave',
         'timestamp' => Carbon::now(),
         'source_type' => $faker->word,
         'source_id' => str_random(20),
@@ -70,7 +54,7 @@ $factory->define(LeaveEvent::class, function (Faker $faker) {
 
 $factory->define(FollowEvent::class, function (Faker $faker) {
     return [
-        'type' => $faker->word,
+        'type' => 'follow',
         'reply_token' => str_random(20),
         'timestamp' => Carbon::now(),
         'source_type' => $faker->word,
@@ -81,7 +65,7 @@ $factory->define(FollowEvent::class, function (Faker $faker) {
 
 $factory->define(UnfollowEvent::class, function (Faker $faker) {
     return [
-        'type' => $faker->word,
+        'type' => 'unfollow',
         'timestamp' => Carbon::now(),
         'source_type' => $faker->word,
         'source_id' => str_random(20),
@@ -91,11 +75,21 @@ $factory->define(UnfollowEvent::class, function (Faker $faker) {
 
 $factory->define(MessageEvent::class, function (Faker $faker) {
     return [
-        'type' => $faker->word,
+        'type' => 'message',
         'reply_token' => str_random(20),
         'timestamp' => Carbon::now(),
         'source_type' => $faker->word,
         'source_id' => str_random(20),
         'origin_data' => str_random(20),
+    ];
+});
+
+$factory->define(Text::class, function (Faker $faker) {
+    $message_event = factory(MessageEvent::class)->create();
+
+    return [
+        'event_id' => $message_event->id,
+        'message_id' => (string)$faker->numberBetween(100000, 999999),
+        'text' => $faker->sentence,
     ];
 });

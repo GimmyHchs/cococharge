@@ -4,6 +4,7 @@ namespace App\Eloquents\Line;
 
 use App\Contracts\Line\IWebhookEvent;
 use App\Eloquents\Eloquent;
+use App\Eloquents\Line\Messages\Text;
 use App\Traits\Line\WebhookEventEloquent;
 
 class MessageEvent extends Eloquent implements IWebhookEvent
@@ -30,4 +31,9 @@ class MessageEvent extends Eloquent implements IWebhookEvent
     protected $casts = [
         'origin_data' => 'object',
     ];
+
+    public function text()
+    {
+        return $this->hasOne(Text::class, 'event_id');
+    }
 }
