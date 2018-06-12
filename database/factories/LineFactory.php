@@ -90,6 +90,7 @@ $factory->define(Text::class, function (Faker $faker) {
     return [
         'event_id' => $message_event->id,
         'message_id' => (string)$faker->numberBetween(100000, 999999),
+        'type' => 'text',
         'text' => $faker->sentence,
     ];
 });
