@@ -11,14 +11,9 @@ class WebhookController extends Controller
 {
     public function webhook(Request $request, HookeventHandler $handler, ReplyService $reply_service)
     {
-        $handler->handle($request->events, true);
-        $reply_token = $handler->getFirstReplyToken();
-        if ($reply_token) {
-            $reply_service->setToken($reply_token);
-            $response = $reply_service->sendText('Hello!!');
+        $events = $handler->handle($request->events, true);
 
-            return response()->json(['message' => 'OK', 'line_response' => $response->getRawBody()]);
-        }
+        $response = $reply_service->replyByEvents($events);
 
         return response()->json(['message' => 'OK', 'line_response' => '']);
     }
