@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services\Line\WebhookParsers;
 
 use App\Eloquents\Line\MessageEvent;
-use App\Eloquents\Line\Messages\Text;
+use App\Eloquents\Line\Messages\LineText;
 use App\Services\Line\WebhookParsers\MessageGenerators\TextGenerator;
 use App\Services\Line\WebhookParsers\MessageParser;
 use Carbon\Carbon;
@@ -45,7 +45,7 @@ class MessageParserTest extends TestCase
         $this->mock(TextGenerator::class)
             ->shouldReceive('generate')
             ->once()
-            ->andReturn(factory(Text::class)->make());
+            ->andReturn(factory(LineText::class)->make());
 
         $event = $parser->parse($this->mock_event);
 
@@ -60,7 +60,7 @@ class MessageParserTest extends TestCase
 
     public function testParseWithRelation()
     {
-        $mock_text = factory(Text::class)->make();
+        $mock_text = factory(LineText::class)->make();
         $parser = app(MessageParser::class);
         $this->mock(TextGenerator::class)
             ->shouldReceive('generate')
@@ -68,12 +68,12 @@ class MessageParserTest extends TestCase
             ->andReturn($mock_text);
 
         $event = $parser->parse($this->mock_event);
-        $this->assertEquals($mock_text->text, $event->text->text);
+        $this->assertEquals($mock_text->text, $event->lineText->text);
     }
 
     public function testParseAndAutoSave()
     {
-        $mock_text = factory(Text::class)->make();
+        $mock_text = factory(LineText::class)->make();
         $this->mock(TextGenerator::class)
             ->shouldReceive('generate')
             ->once()
@@ -87,7 +87,7 @@ class MessageParserTest extends TestCase
 
     public function testPArseAndAutoSaveWitRelation()
     {
-        $mock_text = factory(Text::class)->make();
+        $mock_text = factory(LineText::class)->make();
         $this->mock(TextGenerator::class)
             ->shouldReceive('generate')
             ->once()

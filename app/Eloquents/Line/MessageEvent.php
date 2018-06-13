@@ -4,8 +4,9 @@ namespace App\Eloquents\Line;
 
 use App\Contracts\Line\IWebhookEvent;
 use App\Eloquents\Eloquent;
-use App\Eloquents\Line\Messages\Text;
+use App\Eloquents\Line\Messages\LineText;
 use App\Traits\Line\WebhookEventEloquent;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MessageEvent extends Eloquent implements IWebhookEvent
 {
@@ -32,8 +33,11 @@ class MessageEvent extends Eloquent implements IWebhookEvent
         'origin_data' => 'object',
     ];
 
-    public function text()
+    /**
+     * @return HasOne
+     */
+    public function lineText(): HasOne
     {
-        return $this->hasOne(Text::class, 'event_id');
+        return $this->hasOne(LineText::class, 'event_id');
     }
 }

@@ -7,7 +7,7 @@ use App\Eloquents\Eloquent;
 use App\Eloquents\Line\MessageEvent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Text extends Eloquent implements IMessage
+class LineText extends Eloquent implements IMessage
 {
     protected $table = 'line_message_texts';
 
@@ -18,13 +18,19 @@ class Text extends Eloquent implements IMessage
         'text',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function messageEvent(): BelongsTo
     {
         return $this->belongsTo(MessageEvent::class, 'event_id');
     }
 
+    /**
+     * @return string
+     */
     public function getReverseRelationName(): string
     {
-        return 'text';
+        return 'lineText';
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\Line\WebhookParsers\MessageGenerators;
 
-use App\Eloquents\Line\Messages\Text;
+use App\Eloquents\Line\Messages\LineText;
 use App\Services\Line\WebhookParsers\MessageGenerators\TextGenerator;
 use Tests\TestCase;
 
@@ -21,7 +21,7 @@ class TextGeneratorTest extends TestCase
         $generator = app(TextGenerator::class);
         $result = $generator->generate($message);
 
-        $this->assertInstanceOf(Text::class, $result);
+        $this->assertInstanceOf(LineText::class, $result);
         $this->assertEquals('325708', $result->message_id);
         $this->assertEquals('text', $result->type);
         $this->assertEquals('Hello, world!', $result->text);

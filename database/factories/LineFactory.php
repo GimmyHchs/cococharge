@@ -1,13 +1,10 @@
 <?php
 
 use App\Eloquents\Line\FollowEvent;
-use App\Eloquents\Line\Hookevent;
 use App\Eloquents\Line\JoinEvent;
 use App\Eloquents\Line\LeaveEvent;
-use App\Eloquents\Line\LineText;
-use App\Eloquents\Line\LineUser;
 use App\Eloquents\Line\MessageEvent;
-use App\Eloquents\Line\Messages\Text;
+use App\Eloquents\Line\Messages\LineText;
 use App\Eloquents\Line\UnfollowEvent;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
@@ -22,15 +19,6 @@ use Faker\Generator as Faker;
 | model instances for testing / seeding your application's database.
 |
 */
-
-$factory->define(LineText::class, function (Faker $faker) {
-    return [
-        'line_user_id' => factory(LineUser::class)->create()->id,
-        'hookevent_id' => factory(Hookevent::class)->create()->id,
-        'line_id' => str_random(20),
-    ];
-});
-
 $factory->define(JoinEvent::class, function (Faker $faker) {
     return [
         'type' => 'join',
@@ -84,7 +72,7 @@ $factory->define(MessageEvent::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Text::class, function (Faker $faker) {
+$factory->define(LineText::class, function (Faker $faker) {
     return [
         'message_id' => (string)$faker->numberBetween(100000, 999999),
         'type' => 'text',
@@ -92,7 +80,7 @@ $factory->define(Text::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(Text::class, 'withMessageEvent', function () {
+$factory->state(LineText::class, 'withMessageEvent', function () {
     $event = factory(MessageEvent::class)->create();
 
     return [
