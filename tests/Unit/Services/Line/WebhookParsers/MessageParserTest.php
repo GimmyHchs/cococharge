@@ -32,6 +32,7 @@ class MessageParserTest extends TestCase
         $this->assertInstanceOf(stdClass::class, $event->origin_data);
         $this->assertEquals('nHuyWiB7yP5Zw52FIkcQobQuGDXCTA', $event->reply_token);
         $this->assertEquals('message', $event->type);
+        $this->assertEquals('text', $event->message_type);
         $this->assertEquals($expect_carbon->toDateTimeString(), $event->timestamp->toDateTimeString());
         $this->assertEquals('user', $event->source_type);
         $this->assertEquals('C8900d40ace9ee5d64f93120330ad8872', $event->source_id);

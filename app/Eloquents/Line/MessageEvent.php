@@ -17,6 +17,7 @@ class MessageEvent extends Eloquent implements IWebhookEvent
 
     protected $fillable = [
         'type',
+        'message_type',
         'reply_token',
         'timestamp',
         'source_type',

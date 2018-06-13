@@ -14,6 +14,7 @@ class CreateLineMessageEventsTable extends Migration
         Schema::create('line_message_events', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type', 15);
+            $table->string('message_type', 15);
             $table->string('reply_token', 50);
             $table->timestamp('timestamp');
             $table->string('source_type', 15);

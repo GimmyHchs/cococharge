@@ -65,6 +65,7 @@ $factory->define(UnfollowEvent::class, function (Faker $faker) {
 $factory->define(MessageEvent::class, function (Faker $faker) {
     return [
         'type' => 'message',
+        'message_type' => $faker->word,
         'reply_token' => str_random(20),
         'timestamp' => Carbon::now(),
         'source_type' => $faker->word,

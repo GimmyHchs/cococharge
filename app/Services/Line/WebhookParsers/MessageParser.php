@@ -22,6 +22,7 @@ class MessageParser implements IWebhookParser
         $source_id = array_get($event, "source.{$source_type}Id");
         $message_event = new MessageEvent([
             'type' => array_get($event, 'type'),
+            'message_type' => array_get($event, 'message.type'),
             'reply_token' => array_get($event, 'replyToken'),
             'timestamp' => intval(array_get($event, 'timestamp') / 1000),
             'source_type' => $source_type,
