@@ -4,6 +4,7 @@ use App\Eloquents\Line\FollowEvent;
 use App\Eloquents\Line\JoinEvent;
 use App\Eloquents\Line\LeaveEvent;
 use App\Eloquents\Line\MessageEvent;
+use App\Eloquents\Line\Messages\LineSticker;
 use App\Eloquents\Line\Messages\LineText;
 use App\Eloquents\Line\UnfollowEvent;
 use Carbon\Carbon;
@@ -81,6 +82,23 @@ $factory->define(LineText::class, function (Faker $faker) {
 });
 
 $factory->state(LineText::class, 'withMessageEvent', function () {
+    $event = factory(MessageEvent::class)->create();
+
+    return [
+        'event_id' => $event->id,
+    ];
+});
+
+$factory->define(LineSticker::class, function (Faker $faker) {
+    return [
+        'message_id' => (string)$faker->numberBetween(100000, 999999),
+        'type' => 'sticker',
+        'package_id' => (string)$faker->numberBetween(1, 9999),
+        'sticker_id' => (string)$faker->numberBetween(1, 9999),
+    ];
+});
+
+$factory->state(LineSticker::class, 'withMessageEvent', function () {
     $event = factory(MessageEvent::class)->create();
 
     return [

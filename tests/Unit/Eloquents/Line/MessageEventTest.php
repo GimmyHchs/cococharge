@@ -3,6 +3,7 @@
 namespace Tests\Unit\Eloquents\Line;
 
 use App\Eloquents\Line\MessageEvent;
+use App\Eloquents\Line\Messages\LineSticker;
 use App\Eloquents\Line\Messages\LineText;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -47,5 +48,15 @@ class MessageEventTest extends TestCase
         $event->lineText()->save($text);
 
         $this->assertEquals($text->id, $event->lineText->id);
+    }
+
+    public function testHasOneLineSticker()
+    {
+        $event = factory(MessageEvent::class)->create();
+        $sticker = factory(LineSticker::class)->make();
+
+        $event->lineSticker()->save($sticker);
+
+        $this->assertEquals($sticker->id, $event->lineSticker->id);
     }
 }
