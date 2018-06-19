@@ -3,6 +3,7 @@
 use App\Eloquents\Line\FollowEvent;
 use App\Eloquents\Line\JoinEvent;
 use App\Eloquents\Line\LeaveEvent;
+use App\Eloquents\Line\LineAccount;
 use App\Eloquents\Line\MessageEvent;
 use App\Eloquents\Line\Messages\LineSticker;
 use App\Eloquents\Line\Messages\LineText;
@@ -104,5 +105,12 @@ $factory->state(LineSticker::class, 'withMessageEvent', function () {
 
     return [
         'event_id' => $event->id,
+    ];
+});
+
+$factory->define(LineAccount::class, function (Faker $faker) {
+    return [
+        'type' => 'group',
+        'line_id' => (string)$faker->numberBetween(100000, 999999),
     ];
 });
