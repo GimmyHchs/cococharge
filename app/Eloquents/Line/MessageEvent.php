@@ -18,6 +18,7 @@ class MessageEvent extends Eloquent implements IWebhookEvent, IReplyableEvent
     protected $table = 'line_message_events';
 
     protected $fillable = [
+        'line_account_id',
         'type',
         'message_type',
         'reply_token',

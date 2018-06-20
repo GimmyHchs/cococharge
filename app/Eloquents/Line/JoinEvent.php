@@ -15,6 +15,7 @@ class JoinEvent extends Eloquent implements IWebhookEvent, IReplyableEvent
     protected $table = 'line_join_events';
 
     protected $fillable = [
+        'line_account_id',
         'type',
         'reply_token',
         'timestamp',

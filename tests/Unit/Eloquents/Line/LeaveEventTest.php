@@ -3,6 +3,7 @@
 namespace Tests\Unit\Eloquents\Line;
 
 use App\Eloquents\Line\LeaveEvent;
+use App\Eloquents\Line\LineAccount;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -36,5 +37,15 @@ class LeaveEventTest extends TestCase
         $event->timestamp = 1528383950;
 
         $this->assertInstanceOf(Carbon::class, $event->timestamp);
+    }
+
+    public function testBelongsToLineAccount()
+    {
+        $event = factory(LeaveEvent::class)->create();
+        $account = factory(LineAccount::class)->create();
+
+        $event->lineAccount()->associate($account)->save();
+
+        $this->assertEquals($account->id, $event->lineAccount->id);
     }
 }

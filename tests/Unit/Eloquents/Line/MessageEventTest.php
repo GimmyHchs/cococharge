@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Eloquents\Line;
 
+use App\Eloquents\Line\LineAccount;
 use App\Eloquents\Line\MessageEvent;
 use App\Eloquents\Line\Messages\LineSticker;
 use App\Eloquents\Line\Messages\LineText;
@@ -58,5 +59,15 @@ class MessageEventTest extends TestCase
         $event->lineSticker()->save($sticker);
 
         $this->assertEquals($sticker->id, $event->lineSticker->id);
+    }
+
+    public function testBelongsToLineAccount()
+    {
+        $event = factory(MessageEvent::class)->create();
+        $account = factory(LineAccount::class)->create();
+
+        $event->lineAccount()->associate($account)->save();
+
+        $this->assertEquals($account->id, $event->lineAccount->id);
     }
 }

@@ -13,6 +13,7 @@ class LeaveEvent extends Eloquent implements IWebhookEvent
     protected $table = 'line_leave_events';
 
     protected $fillable = [
+        'line_account_id',
         'type',
         'timestamp',
         'source_type',

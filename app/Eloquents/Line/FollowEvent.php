@@ -15,6 +15,7 @@ class FollowEvent extends Eloquent implements IWebhookEvent, IReplyableEvent
     protected $table = 'line_follow_events';
 
     protected $fillable = [
+        'line_account_id',
         'type',
         'reply_token',
         'timestamp',
