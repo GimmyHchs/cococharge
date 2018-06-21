@@ -17,6 +17,22 @@ trait WebhookEventEloquent
     }
 
     /**
+     * @return string
+     */
+    public function getSourceId(): string
+    {
+        return $this->source_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSourceType(): string
+    {
+        return $this->source_type;
+    }
+
+    /**
      * @return stdClass
      */
     public function getOriginData(): stdClass

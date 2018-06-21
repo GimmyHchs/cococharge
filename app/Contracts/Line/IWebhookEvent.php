@@ -13,6 +13,16 @@ interface IWebhookEvent
     public function getType(): string;
 
     /**
+     * @return string
+     */
+    public function getSourceId(): string;
+
+    /**
+     * @return string
+     */
+    public function getSourceType(): string;
+
+    /**
      * @return stdClass
      */
     public function getOriginData(): stdClass;
