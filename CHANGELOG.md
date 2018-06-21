@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/g9308370/cococharge/compare/v0.4.0...v0.5.0) (2018-06-21)
+
+
+### Features
+
+* **line:** add line account eloquent ([e14ebc9](https://github.com/g9308370/cococharge/commit/e14ebc9))
+* **line:** add line sticker message ([84ec50d](https://github.com/g9308370/cococharge/commit/84ec50d))
+* **line:** add message_type into message hookevent ([23bec64](https://github.com/g9308370/cococharge/commit/23bec64))
+* **line:** add relation between LineAccount and WebhookEvents ([5b3d6f1](https://github.com/g9308370/cococharge/commit/5b3d6f1))
+* **line:** handle line bot reaction with sticker & other type message event ([c76460a](https://github.com/g9308370/cococharge/commit/c76460a))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/g9308370/cococharge/compare/v0.3.0...v0.4.0) (2018-06-12)
 
