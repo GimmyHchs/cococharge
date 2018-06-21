@@ -7,24 +7,31 @@ use App\Eloquents\Eloquent;
 use App\Eloquents\Line\MessageEvent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Text extends Eloquent implements IMessage
+class LineSticker extends Eloquent implements IMessage
 {
-    protected $table = 'line_message_texts';
+    protected $table = 'line_message_stickers';
 
     protected $fillable = [
         'event_id',
         'message_id',
         'type',
-        'text',
+        'package_id',
+        'sticker_id',
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function messageEvent(): BelongsTo
     {
         return $this->belongsTo(MessageEvent::class, 'event_id');
     }
 
+    /**
+     * @return string
+     */
     public function getReverseRelationName(): string
     {
-        return 'text';
+        return 'lineSticker';
     }
 }

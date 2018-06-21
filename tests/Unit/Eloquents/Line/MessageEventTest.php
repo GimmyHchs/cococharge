@@ -2,8 +2,10 @@
 
 namespace Tests\Unit\Eloquents\Line;
 
+use App\Eloquents\Line\LineAccount;
 use App\Eloquents\Line\MessageEvent;
-use App\Eloquents\Line\Messages\Text;
+use App\Eloquents\Line\Messages\LineSticker;
+use App\Eloquents\Line\Messages\LineText;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -39,13 +41,33 @@ class MessageEventTest extends TestCase
         $this->assertInstanceOf(Carbon::class, $event->timestamp);
     }
 
-    public function testHasOneText()
+    public function testHasOneLineText()
     {
         $event = factory(MessageEvent::class)->create();
-        $text = factory(Text::class)->make();
+        $text = factory(LineText::class)->make();
 
-        $event->text()->save($text);
+        $event->lineText()->save($text);
 
-        $this->assertEquals($text->id, $event->text->id);
+        $this->assertEquals($text->id, $event->lineText->id);
+    }
+
+    public function testHasOneLineSticker()
+    {
+        $event = factory(MessageEvent::class)->create();
+        $sticker = factory(LineSticker::class)->make();
+
+        $event->lineSticker()->save($sticker);
+
+        $this->assertEquals($sticker->id, $event->lineSticker->id);
+    }
+
+    public function testBelongsToLineAccount()
+    {
+        $event = factory(MessageEvent::class)->create();
+        $account = factory(LineAccount::class)->create();
+
+        $event->lineAccount()->associate($account)->save();
+
+        $this->assertEquals($account->id, $event->lineAccount->id);
     }
 }

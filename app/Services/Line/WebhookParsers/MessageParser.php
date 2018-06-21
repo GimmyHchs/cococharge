@@ -20,8 +20,9 @@ class MessageParser implements IWebhookParser
     {
         $source_type = array_get($event, 'source.type');
         $source_id = array_get($event, "source.{$source_type}Id");
-        $join_event = new MessageEvent([
+        $message_event = new MessageEvent([
             'type' => array_get($event, 'type'),
+            'message_type' => array_get($event, 'message.type'),
             'reply_token' => array_get($event, 'replyToken'),
             'timestamp' => intval(array_get($event, 'timestamp') / 1000),
             'source_type' => $source_type,
@@ -30,18 +31,14 @@ class MessageParser implements IWebhookParser
         ]);
 
         $message = $this->generateMessage(array_get($event, 'message'));
-        $message_relation = $message->getReverseRelationName();
 
         if ($is_auto_save) {
-            $join_event->save();
-            $join_event->{$message_relation}()->save($message);
-
-            return $join_event->load($message_relation);
+            return $this->saveEventWithMessage($message_event, $message);
         }
 
-        $join_event->{$message_relation} = $message;
+        $message_event->{$message->getReverseRelationName()} = $message;
 
-        return $join_event;
+        return $message_event;
     }
 
     /**
@@ -54,5 +51,20 @@ class MessageParser implements IWebhookParser
         $generator = GeneratorFactory::make(array_get($message, 'type'));
 
         return $generator->generate($message);
+    }
+
+    /**
+     * @param MessageEvent $event
+     * @param IMessage $message
+     *
+     * @return MessageEvent
+     */
+    private function saveEventWithMessage(MessageEvent $event, IMessage $message): MessageEvent
+    {
+        $relation_name = $message->getReverseRelationName();
+        $event->save();
+        $event->{$relation_name}()->save($message);
+
+        return $event->load($relation_name);
     }
 }

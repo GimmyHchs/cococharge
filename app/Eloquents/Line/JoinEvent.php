@@ -2,17 +2,20 @@
 
 namespace App\Eloquents\Line;
 
+use App\Contracts\Line\IReplyableEvent;
 use App\Contracts\Line\IWebhookEvent;
 use App\Eloquents\Eloquent;
+use App\Traits\Line\ReplyableEventEloquent;
 use App\Traits\Line\WebhookEventEloquent;
 
-class JoinEvent extends Eloquent implements IWebhookEvent
+class JoinEvent extends Eloquent implements IWebhookEvent, IReplyableEvent
 {
-    use WebhookEventEloquent;
+    use WebhookEventEloquent, ReplyableEventEloquent;
 
     protected $table = 'line_join_events';
 
     protected $fillable = [
+        'line_account_id',
         'type',
         'reply_token',
         'timestamp',

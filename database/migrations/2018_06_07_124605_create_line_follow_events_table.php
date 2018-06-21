@@ -13,6 +13,10 @@ class CreateLineFollowEventsTable extends Migration
     {
         Schema::create('line_follow_events', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('line_account_id')
+                ->unsigned()
+                ->nullable()
+                ->index('line_follow_events_line_account_id');
             $table->string('type', 15);
             $table->string('reply_token', 50);
             $table->timestamp('timestamp');
@@ -20,6 +24,9 @@ class CreateLineFollowEventsTable extends Migration
             $table->string('source_id', 50);
             $table->text('origin_data');
             $table->timestamps();
+
+            //foreign Key Set
+            $table->foreign('line_account_id')->references('id')->on('line_accounts')->onDelete('set null');
         });
     }
 

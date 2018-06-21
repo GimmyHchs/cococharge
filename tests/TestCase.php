@@ -5,11 +5,10 @@ namespace Tests;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Mockery;
 use Mockery\MockInterface;
-use Tests\Traits\MessagePrintable;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, MessagePrintable;
+    use CreatesApplication;
 
     /**
      * @param string $class

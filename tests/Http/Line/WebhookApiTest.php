@@ -5,7 +5,6 @@ namespace Tests\Http\Line;
 use App\Services\Line\HookeventHandler;
 use App\Services\Line\ReplyService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use LINE\LINEBot\Response;
 use Tests\TestCase;
 
 class WebhookApiTest extends TestCase
@@ -17,36 +16,14 @@ class WebhookApiTest extends TestCase
         $this->mock(HookeventHandler::class)
             ->shouldReceive('handle')
             ->once()
-            ->andReturn(collect())
-            ->shouldReceive('getFirstReplyToken')
-            ->once()
-            ->andReturn('mock-token');
+            ->andReturn(collect());
 
         $this->mock(ReplyService::class)
-            ->shouldReceive('setToken')
+            ->shouldReceive('replyByEvents')
             ->once()
-            ->andReturn(null)
-            ->shouldReceive('sendText')
-            ->once()
-            ->andReturn(new Response(200, 'mock-body'));
+            ->andReturn(0);
 
         $response = $this->post(route('line.webhook'), ['events' => []]);
         $response->assertStatus(200);
-        $response->assertSee('mock-body');
-    }
-
-    public function testPostToWebhookReturn200NoToken()
-    {
-        $this->mock(HookeventHandler::class)
-            ->shouldReceive('handle')
-            ->once()
-            ->andReturn(collect())
-            ->shouldReceive('getFirstReplyToken')
-            ->once()
-            ->andReturn('');
-
-        $response = $this->post(route('line.webhook'), ['events' => []]);
-        $response->assertStatus(200);
-        $response->assertSee('');
     }
 }

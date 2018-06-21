@@ -17,6 +17,8 @@ class GeneratorFactory
         switch ($type) {
             case 'text':
                 return app(TextGenerator::class);
+            case 'sticker':
+                return app(StickerGenerator::class);
             default:
                 throw new UndefinedMessageTypeException("undefined message type [{$type}]");
         }

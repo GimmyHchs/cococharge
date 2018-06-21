@@ -3,24 +3,24 @@
 namespace Tests\Unit\Eloquents\Line;
 
 use App\Eloquents\Line\MessageEvent;
-use App\Eloquents\Line\Messages\Text;
+use App\Eloquents\Line\Messages\LineText;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class TextTest extends TestCase
+class LineTextTest extends TestCase
 {
     use RefreshDatabase;
 
     public function testFactory()
     {
-        $texts = factory(Text::class, 5)->make();
+        $texts = factory(LineText::class, 5)->make();
 
         $this->assertEquals($texts->count(), 5);
     }
 
     public function testBelongsToMessageEvent()
     {
-        $text = factory(Text::class)->make();
+        $text = factory(LineText::class)->make();
         $message_event = factory(MessageEvent::class)->create();
 
         $text->messageEvent()->associate($message_event)->save();

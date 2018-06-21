@@ -4,21 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIncomeGroupsTable extends Migration
+class CreateLineAccountsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up()
     {
-        Schema::create('income_groups', function (Blueprint $table) {
+        Schema::create('line_accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->string('name');
+            $table->string('type', 15);
+            $table->string('line_id', 50)->index('line_accounts_line_id');
             $table->timestamps();
-
-            //foreign Key Set
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -27,6 +24,6 @@ class CreateIncomeGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('income_groups');
+        Schema::dropIfExists('line_accounts');
     }
 }
