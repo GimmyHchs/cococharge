@@ -3,7 +3,7 @@
 namespace Tests\Http\Line;
 
 use App\Services\Line\HookeventHandler;
-use App\Services\Line\ReplyService;
+use App\Services\SyntaxGate\ActionDispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,10 +18,13 @@ class WebhookApiTest extends TestCase
             ->once()
             ->andReturn(collect());
 
-        $this->mock(ReplyService::class)
-            ->shouldReceive('replyByEvents')
+        $this->mock(ActionDispatcher::class)
+            ->shouldReceive('setEvent')
             ->once()
-            ->andReturn(0);
+            ->andReturn(null)
+            ->shouldReceive('dispatchActions')
+            ->once()
+            ->andReturn(null);
 
         $response = $this->post(route('line.webhook'), ['events' => []]);
         $response->assertStatus(200);

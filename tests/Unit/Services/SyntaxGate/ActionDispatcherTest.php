@@ -25,7 +25,8 @@ class ActionDispatcherTest extends TestCase
                 $this->assertEquals($arg, $event);
             });
 
-        $dispatcher = app(ActionDispatcher::class, [$event]);
+        $dispatcher = app(ActionDispatcher::class);
+        $dispatcher->setEvent($event);
         $dispatcher->dispatchActions();
     }
 }

@@ -21,7 +21,10 @@ class ActionDispatcher
      */
     protected $actions;
 
-    public function __construct(IWebhookEvent $event)
+    /**
+     * @param IWebhookEvent|null $event
+     */
+    public function setEvent(?IWebhookEvent $event): void
     {
         $this->event = $event;
         $this->filterActions();
