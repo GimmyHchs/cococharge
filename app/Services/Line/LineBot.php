@@ -37,14 +37,14 @@ class LineBot extends BaseLineBot
      */
     public function replySticker(string $reply_token, string $package_id, string $sticker_id): Response
     {
-        $stickerBuilder = app(StickerMessageBuilder::class, [
+        $sticker_builder = app(StickerMessageBuilder::class, [
             'packageId' => $package_id,
             'stickerId' => $sticker_id,
         ]);
 
         return $this->client->post(self::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
             'replyToken' => $reply_token,
-            'messages' => $stickerBuilder->buildMessage(),
+            'messages' => $sticker_builder->buildMessage(),
         ]);
     }
 }
