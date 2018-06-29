@@ -23,4 +23,9 @@ class KeySignHelperTest extends TestCase
     {
         $this->assertEquals('abcdefg', KeySignHelper::cutTriggerSign('*abcdefg'));
     }
+
+    public function testCutTriggerSignWontCutWhenNoSign()
+    {
+        $this->assertEquals('abcdefg', KeySignHelper::cutTriggerSign('abcdefg'));
+    }
 }
