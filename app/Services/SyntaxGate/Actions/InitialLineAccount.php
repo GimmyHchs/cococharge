@@ -44,6 +44,9 @@ class InitialLineAccount implements IAction
     private function sendAccountCreatedMessage(IReplyableEvent $event): void
     {
         $this->reply_service->setToken($event->getReplyToken());
-        $this->reply_service->sendText(trans('initial_line_account', ['bot_name' => config('')]));
+        $this->reply_service->sendText(trans(
+            'initial_line_account.account_created_notification',
+            ['bot_name' => config('bot.name')]
+        ));
     }
 }
