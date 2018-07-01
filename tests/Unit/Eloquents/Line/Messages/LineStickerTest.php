@@ -21,10 +21,10 @@ class LineStickerTest extends TestCase
     public function testBelongsToMessageEvent()
     {
         $sticker = factory(LineSticker::class)->make();
-        $message_event = factory(MessageEvent::class)->create();
+        $messageEvent = factory(MessageEvent::class)->create();
 
-        $sticker->messageEvent()->associate($message_event)->save();
+        $sticker->messageEvent()->associate($messageEvent)->save();
 
-        $this->assertEquals($message_event->id, $sticker->messageEvent->id);
+        $this->assertEquals($messageEvent->id, $sticker->messageEvent->id);
     }
 }

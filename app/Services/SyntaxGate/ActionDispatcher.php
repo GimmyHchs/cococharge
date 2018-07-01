@@ -15,7 +15,7 @@ class ActionDispatcher
     protected $event;
 
     /**
-     * collection of \App\Services\SyntaxGate\Actions\Action.
+     * collection of App\Contracts\SyntaxGate\IAction.
      *
      * @param Collection $actions
      */

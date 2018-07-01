@@ -13,12 +13,12 @@ class FollowParserTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $mock_event;
+    protected $mockEvent;
 
     public function setUp()
     {
         parent::setUp();
-        $event_json = '
+        $eventJson = '
             {
                 "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
                 "type": "follow",
@@ -28,13 +28,13 @@ class FollowParserTest extends TestCase
                     "userId": "C8900d40ace9ee5d64f93120330ad8872"
                 }
             }';
-        $this->mock_event = json_decode($event_json, true);
+        $this->mockEvent = json_decode($eventJson, true);
     }
 
     public function testParse()
     {
         $parser = app(FollowParser::class);
-        $event = $parser->parse($this->mock_event);
+        $event = $parser->parse($this->mockEvent);
         $expectCarbon = Carbon::createFromTimestamp(intval(1462629479859 / 1000));
         $this->assertInstanceOf(FollowEvent::class, $event);
         $this->assertInstanceOf(stdClass::class, $event->origin_data);
@@ -48,7 +48,7 @@ class FollowParserTest extends TestCase
     public function testParseAndAutoSave()
     {
         $parser = app(FollowParser::class);
-        $parser->parse($this->mock_event, true);
+        $parser->parse($this->mockEvent, true);
 
         $this->assertEquals(1, FollowEvent::all()->count());
     }

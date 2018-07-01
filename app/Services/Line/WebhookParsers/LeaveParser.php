@@ -10,26 +10,26 @@ class LeaveParser implements IWebhookParser
 {
     /**
      * @param array $event
-     * @param bool $is_auto_save
+     * @param bool $isAutoSave
      *
      * @return IWebhookEvent
      */
-    public function parse(array $event, bool $is_auto_save = false): IWebhookEvent
+    public function parse(array $event, bool $isAutoSave = false): IWebhookEvent
     {
-        $source_type = array_get($event, 'source.type');
-        $source_id = array_get($event, "source.{$source_type}Id");
-        $leave_event = new LeaveEvent([
+        $sourceType = array_get($event, 'source.type');
+        $sourceId = array_get($event, "source.{$sourceType}Id");
+        $leaveEvent = new LeaveEvent([
             'type' => array_get($event, 'type'),
             'timestamp' => intval(array_get($event, 'timestamp') / 1000),
-            'source_type' => $source_type,
-            'source_id' => $source_id,
+            'source_type' => $sourceType,
+            'source_id' => $sourceId,
             'origin_data' => $event,
         ]);
 
-        if ($is_auto_save) {
-            $leave_event->save();
+        if ($isAutoSave) {
+            $leaveEvent->save();
         }
 
-        return $leave_event;
+        return $leaveEvent;
     }
 }

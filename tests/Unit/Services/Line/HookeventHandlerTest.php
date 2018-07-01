@@ -13,12 +13,12 @@ class HookeventHandlerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $mock_events;
+    protected $mockEvents;
 
     public function setUp()
     {
         parent::setUp();
-        $message_json = '
+        $messageJson = '
             {
                 "events": [
                     {
@@ -32,23 +32,23 @@ class HookeventHandlerTest extends TestCase
                     }
                 ]
             }';
-        $this->mock_events = json_decode($message_json, true)['events'];
+        $this->mockEvents = json_decode($messageJson, true)['events'];
     }
 
     public function testHandle()
     {
-        $join_event = factory(JoinEvent::class)->make();
+        $joinEvent = factory(JoinEvent::class)->make();
         $this->mock(JoinParser::class)
             ->shouldReceive('parse')
-            ->with($this->mock_events[0], false)
+            ->with($this->mockEvents[0], false)
             ->once()
-            ->andReturn($join_event);
+            ->andReturn($joinEvent);
         $handler = app(HookeventHandler::class);
 
-        $collection = $handler->handle($this->mock_events);
+        $collection = $handler->handle($this->mockEvents);
 
         $this->assertEquals(1, $collection->count());
-        $this->assertEquals($join_event, $collection->first());
+        $this->assertEquals($joinEvent, $collection->first());
     }
 
     public function testHandleUndefinedType()
@@ -56,25 +56,25 @@ class HookeventHandlerTest extends TestCase
         Log::shouldReceive('error')
             ->once();
 
-        $this->mock_events[0]['type'] = 'error-type';
+        $this->mockEvents[0]['type'] = 'error-type';
 
         $handler = app(HookeventHandler::class);
 
-        $collection = $handler->handle($this->mock_events);
+        $collection = $handler->handle($this->mockEvents);
 
         $this->assertEquals(0, $collection->count());
     }
 
     public function testGetFirstToken()
     {
-        $join_event = factory(JoinEvent::class)->make();
+        $joinEvent = factory(JoinEvent::class)->make();
         $this->mock(JoinParser::class)
             ->shouldReceive('parse')
-            ->andReturn($join_event);
+            ->andReturn($joinEvent);
         $handler = app(HookeventHandler::class);
 
-        $handler->handle($this->mock_events);
+        $handler->handle($this->mockEvents);
 
-        $this->assertEquals($join_event->reply_token, $handler->getFirstReplyToken());
+        $this->assertEquals($joinEvent->reply_token, $handler->getFirstReplyToken());
     }
 }

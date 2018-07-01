@@ -12,33 +12,33 @@ class MessageParser implements IWebhookParser
 {
     /**
      * @param array $event
-     * @param bool $is_auto_save
+     * @param bool $isAutoSave
      *
      * @return IWebhookEvent
      */
-    public function parse(array $event, bool $is_auto_save = false): IWebhookEvent
+    public function parse(array $event, bool $isAutoSave = false): IWebhookEvent
     {
-        $source_type = array_get($event, 'source.type');
-        $source_id = array_get($event, "source.{$source_type}Id");
-        $message_event = new MessageEvent([
+        $sourceType = array_get($event, 'source.type');
+        $sourceId = array_get($event, "source.{$sourceType}Id");
+        $messageEvent = new MessageEvent([
             'type' => array_get($event, 'type'),
             'message_type' => array_get($event, 'message.type'),
             'reply_token' => array_get($event, 'replyToken'),
             'timestamp' => intval(array_get($event, 'timestamp') / 1000),
-            'source_type' => $source_type,
-            'source_id' => $source_id,
+            'source_type' => $sourceType,
+            'source_id' => $sourceId,
             'origin_data' => $event,
         ]);
 
         $message = $this->generateMessage(array_get($event, 'message'));
 
-        if ($is_auto_save) {
-            return $this->saveEventWithMessage($message_event, $message);
+        if ($isAutoSave) {
+            return $this->saveEventWithMessage($messageEvent, $message);
         }
 
-        $message_event->{$message->getReverseRelationName()} = $message;
+        $messageEvent->{$message->getReverseRelationName()} = $message;
 
-        return $message_event;
+        return $messageEvent;
     }
 
     /**
@@ -61,10 +61,10 @@ class MessageParser implements IWebhookParser
      */
     private function saveEventWithMessage(MessageEvent $event, IMessage $message): MessageEvent
     {
-        $relation_name = $message->getReverseRelationName();
+        $relationName = $message->getReverseRelationName();
         $event->save();
-        $event->{$relation_name}()->save($message);
+        $event->{$relationName}()->save($message);
 
-        return $event->load($relation_name);
+        return $event->load($relationName);
     }
 }

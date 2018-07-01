@@ -14,7 +14,7 @@ class ReplyService
     /**
      * @var string
      */
-    protected $reply_token;
+    protected $replyToken;
 
     /**
      * @var LineBot
@@ -27,11 +27,11 @@ class ReplyService
     }
 
     /**
-     * @param string $reply_token
+     * @param string $replyToken
      */
-    public function setToken(string $reply_token): void
+    public function setToken(string $replyToken): void
     {
-        $this->reply_token = $reply_token;
+        $this->replyToken = $replyToken;
     }
 
     /**
@@ -41,18 +41,18 @@ class ReplyService
      */
     public function sendText(string $message): Response
     {
-        return $this->bot->replyText($this->reply_token, $message);
+        return $this->bot->replyText($this->replyToken, $message);
     }
 
     /**
-     * @param string $package_id
-     * @param string $sticker_id
+     * @param string $packageId
+     * @param string $stickerId
      *
      * @return Response
      */
-    public function sendSticker(string $package_id, string $sticker_id): Response
+    public function sendSticker(string $packageId, string $stickerId): Response
     {
-        return $this->bot->replySticker($this->reply_token, $package_id, $sticker_id);
+        return $this->bot->replySticker($this->replyToken, $packageId, $stickerId);
     }
 
     /**

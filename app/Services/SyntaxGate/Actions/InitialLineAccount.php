@@ -13,11 +13,11 @@ class InitialLineAccount implements IAction
     /**
      * @var ReplyService
      */
-    protected $reply_service;
+    protected $replyService;
 
     public function __construct(ReplyService $service)
     {
-        $this->reply_service = $service;
+        $this->replyService = $service;
     }
 
     /**
@@ -43,8 +43,8 @@ class InitialLineAccount implements IAction
      */
     private function sendAccountCreatedMessage(IReplyableEvent $event): void
     {
-        $this->reply_service->setToken($event->getReplyToken());
-        $this->reply_service->sendText(trans(
+        $this->replyService->setToken($event->getReplyToken());
+        $this->replyService->sendText(trans(
             'initial_line_account.account_created_notification',
             ['bot_name' => config('bot.name')]
         ));

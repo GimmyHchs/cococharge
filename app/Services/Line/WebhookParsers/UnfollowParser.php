@@ -10,26 +10,26 @@ class UnfollowParser implements IWebhookParser
 {
     /**
      * @param array $event
-     * @param bool $is_auto_save
+     * @param bool $isAutoSave
      *
      * @return IWebhookEvent
      */
-    public function parse(array $event, bool $is_auto_save = false): IWebhookEvent
+    public function parse(array $event, bool $isAutoSave = false): IWebhookEvent
     {
-        $source_type = array_get($event, 'source.type');
-        $source_id = array_get($event, "source.{$source_type}Id");
-        $un_follow_event = new UnfollowEvent([
+        $sourceType = array_get($event, 'source.type');
+        $sourceId = array_get($event, "source.{$sourceType}Id");
+        $unfollowEvent = new UnfollowEvent([
             'type' => array_get($event, 'type'),
             'timestamp' => intval(array_get($event, 'timestamp') / 1000),
-            'source_type' => $source_type,
-            'source_id' => $source_id,
+            'source_type' => $sourceType,
+            'source_id' => $sourceId,
             'origin_data' => $event,
         ]);
 
-        if ($is_auto_save) {
-            $un_follow_event->save();
+        if ($isAutoSave) {
+            $unfollowEvent->save();
         }
 
-        return $un_follow_event;
+        return $unfollowEvent;
     }
 }

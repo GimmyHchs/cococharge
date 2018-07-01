@@ -29,22 +29,22 @@ class LineBot extends BaseLineBot
     }
 
     /**
-     * @param string $reply_token
-     * @param string $package_id
-     * @param string $sticker_id
+     * @param string $replyToken
+     * @param string $packageId
+     * @param string $stickerId
      *
      * @return Response
      */
-    public function replySticker(string $reply_token, string $package_id, string $sticker_id): Response
+    public function replySticker(string $replyToken, string $packageId, string $stickerId): Response
     {
-        $sticker_builder = app(StickerMessageBuilder::class, [
-            'packageId' => $package_id,
-            'stickerId' => $sticker_id,
+        $stickerBuilder = app(StickerMessageBuilder::class, [
+            'packageId' => $packageId,
+            'stickerId' => $stickerId,
         ]);
 
         return $this->client->post(self::DEFAULT_ENDPOINT_BASE . '/v2/bot/message/reply', [
-            'replyToken' => $reply_token,
-            'messages' => $sticker_builder->buildMessage(),
+            'replyToken' => $replyToken,
+            'messages' => $stickerBuilder->buildMessage(),
         ]);
     }
 }

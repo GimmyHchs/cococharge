@@ -19,14 +19,14 @@ class HookeventHandler
      *
      * @return Collection
      */
-    public function handle(array $events, bool $is_auto_save = false): Collection
+    public function handle(array $events, bool $isAutoSave = false): Collection
     {
         $this->hookevents = collect([]);
 
         foreach ($events as $event) {
             try {
                 $parser = ParserFactory::make(array_get($event, 'type'));
-                $this->hookevents->push($parser->parse($event, $is_auto_save));
+                $this->hookevents->push($parser->parse($event, $isAutoSave));
             } catch (UndefinedEventTypeException $e) {
                 Log::error($e->getMessage());
             }
