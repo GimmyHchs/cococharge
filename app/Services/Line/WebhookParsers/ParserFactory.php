@@ -2,7 +2,7 @@
 
 namespace App\Services\Line\WebhookParsers;
 
-use App\Contracts\Line\IWebhookParser;
+use App\Contracts\Line\WebhookParser;
 use App\Exceptions\Line\UndefinedEventTypeException;
 
 class ParserFactory
@@ -10,9 +10,9 @@ class ParserFactory
     /**
      * @param string $type
      *
-     * @return IWebhookParser
+     * @return WebhookParser
      */
-    public static function make(string $type): IWebhookParser
+    public static function make(string $type): WebhookParser
     {
         switch ($type) {
             case 'join':

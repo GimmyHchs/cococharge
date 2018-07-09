@@ -2,19 +2,19 @@
 
 namespace App\Services\Line\WebhookParsers;
 
-use App\Contracts\Line\IWebhookEvent;
-use App\Contracts\Line\IWebhookParser;
+use App\Contracts\Line\WebhookEvent;
+use App\Contracts\Line\WebhookParser;
 use App\Eloquents\Line\LeaveEvent;
 
-class LeaveParser implements IWebhookParser
+class LeaveParser implements WebhookParser
 {
     /**
      * @param array $event
      * @param bool $isAutoSave
      *
-     * @return IWebhookEvent
+     * @return WebhookEvent
      */
-    public function parse(array $event, bool $isAutoSave = false): IWebhookEvent
+    public function parse(array $event, bool $isAutoSave = false): WebhookEvent
     {
         $sourceType = array_get($event, 'source.type');
         $sourceId = array_get($event, "source.{$sourceType}Id");

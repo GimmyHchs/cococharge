@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Services\SyntaxGate;
 
-use App\Contracts\Line\IWebhookEvent;
+use App\Contracts\Line\WebhookEvent;
 use App\Eloquents\Line\MessageEvent;
 use App\Services\SyntaxGate\ActionDispatcher;
 use App\Services\SyntaxGate\Actions\InitialLineAccount;
@@ -16,7 +16,7 @@ class ActionDispatcherTest extends TestCase
     public function testDispatchAction()
     {
         $event = factory(MessageEvent::class)->make();
-        $this->bindToInterface(IWebhookEvent::class, $event);
+        $this->bindToInterface(WebhookEvent::class, $event);
 
         $this->mock(InitialLineAccount::class)
             ->shouldReceive('execute')

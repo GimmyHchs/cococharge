@@ -2,21 +2,21 @@
 
 namespace App\Services\Line\WebhookParsers;
 
-use App\Contracts\Line\IMessage;
-use App\Contracts\Line\IWebhookEvent;
-use App\Contracts\Line\IWebhookParser;
+use App\Contracts\Line\Message;
+use App\Contracts\Line\WebhookEvent;
+use App\Contracts\Line\WebhookParser;
 use App\Eloquents\Line\MessageEvent;
 use App\Services\Line\WebhookParsers\MessageGenerators\GeneratorFactory;
 
-class MessageParser implements IWebhookParser
+class MessageParser implements WebhookParser
 {
     /**
      * @param array $event
      * @param bool $isAutoSave
      *
-     * @return IWebhookEvent
+     * @return WebhookEvent
      */
-    public function parse(array $event, bool $isAutoSave = false): IWebhookEvent
+    public function parse(array $event, bool $isAutoSave = false): WebhookEvent
     {
         $sourceType = array_get($event, 'source.type');
         $sourceId = array_get($event, "source.{$sourceType}Id");
@@ -44,9 +44,9 @@ class MessageParser implements IWebhookParser
     /**
      * @param array $message
      *
-     * @return IMessage
+     * @return Message
      */
-    private function generateMessage(array $message): IMessage
+    private function generateMessage(array $message): Message
     {
         $generator = GeneratorFactory::make(array_get($message, 'type'));
 
@@ -55,11 +55,11 @@ class MessageParser implements IWebhookParser
 
     /**
      * @param MessageEvent $event
-     * @param IMessage $message
+     * @param Message $message
      *
      * @return MessageEvent
      */
-    private function saveEventWithMessage(MessageEvent $event, IMessage $message): MessageEvent
+    private function saveEventWithMessage(MessageEvent $event, Message $message): MessageEvent
     {
         $relationName = $message->getReverseRelationName();
         $event->save();

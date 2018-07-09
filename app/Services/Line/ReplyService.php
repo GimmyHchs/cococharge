@@ -2,7 +2,7 @@
 
 namespace App\Services\Line;
 
-use App\Contracts\Line\IReplyableEvent;
+use App\Contracts\Line\ReplyableEvent;
 use Illuminate\Support\Collection;
 use LINE\LINEBot\Response;
 
@@ -67,7 +67,7 @@ class ReplyService
         $count = 0;
 
         foreach ($events as $event) {
-            if (!$event instanceof IReplyableEvent || $event->getType() != 'message') {
+            if (!$event instanceof ReplyableEvent || $event->getType() != 'message') {
                 continue;
             }
             $this->setToken($event->getReplyToken());

@@ -5,7 +5,7 @@ namespace App\Contracts\Line;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use stdClass;
 
-interface IWebhookEvent
+interface WebhookEvent
 {
     /**
      * @return string

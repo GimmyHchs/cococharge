@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Line;
 
-interface IReplyableEvent
+interface ReplyableEvent
 {
     /**
      * @return string
