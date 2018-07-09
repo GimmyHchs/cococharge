@@ -2,8 +2,10 @@
 
 namespace App\Eloquents\Line;
 
+use App\Eloquents\Accounting\Wallet;
 use App\Eloquents\Eloquent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LineAccount extends Eloquent
 {
@@ -52,5 +54,13 @@ class LineAccount extends Eloquent
     public function messageEvents(): HasMany
     {
         return $this->hasMany(MessageEvent::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function wallet(): HasOne
+    {
+        return $this->hasOne(Wallet::class);
     }
 }
