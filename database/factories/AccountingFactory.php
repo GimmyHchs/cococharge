@@ -1,5 +1,7 @@
 <?php
 
+use App\Eloquents\Accounting\Expense;
+use App\Eloquents\Accounting\Income;
 use App\Eloquents\Accounting\Wallet;
 use App\Eloquents\Line\LineAccount;
 use Faker\Generator as Faker;
@@ -20,5 +22,23 @@ $factory->define(Wallet::class, function (Faker $faker) {
     return [
         'line_account_id' => $lineUser->id,
         'balance' => $faker->numberBetween(100000, 999999),
+    ];
+});
+
+$factory->define(Income::class, function (Faker $faker) {
+    $wallet = factory(Wallet::class)->create();
+
+    return [
+        'wallet_id' => $wallet->id,
+        'amount' => $faker->numberBetween(100000, 999999),
+    ];
+});
+
+$factory->define(Expense::class, function (Faker $faker) {
+    $wallet = factory(Wallet::class)->create();
+
+    return [
+        'wallet_id' => $wallet->id,
+        'amount' => $faker->numberBetween(100000, 999999),
     ];
 });
