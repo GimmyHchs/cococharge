@@ -2,11 +2,11 @@
 
 namespace App\Eloquents\Line;
 
-use App\Contracts\Line\IWebhookEvent;
+use App\Contracts\Line\WebhookEvent;
 use App\Eloquents\Eloquent;
 use App\Traits\Line\WebhookEventEloquent;
 
-class UnfollowEvent extends Eloquent implements IWebhookEvent
+class UnfollowEvent extends Eloquent implements WebhookEvent
 {
     use WebhookEventEloquent;
 

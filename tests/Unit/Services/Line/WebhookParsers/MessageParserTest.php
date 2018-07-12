@@ -20,7 +20,7 @@ class MessageParserTest extends TestCase
     public function testParse()
     {
         $parser = app(MessageParser::class);
-        $expect_carbon = Carbon::createFromTimestamp(intval(1462629479859 / 1000));
+        $expectCarbon = Carbon::createFromTimestamp(intval(1462629479859 / 1000));
         $this->mock(TextGenerator::class)
             ->shouldReceive('generate')
             ->once()
@@ -33,7 +33,7 @@ class MessageParserTest extends TestCase
         $this->assertEquals('nHuyWiB7yP5Zw52FIkcQobQuGDXCTA', $event->reply_token);
         $this->assertEquals('message', $event->type);
         $this->assertEquals('text', $event->message_type);
-        $this->assertEquals($expect_carbon->toDateTimeString(), $event->timestamp->toDateTimeString());
+        $this->assertEquals($expectCarbon->toDateTimeString(), $event->timestamp->toDateTimeString());
         $this->assertEquals('user', $event->source_type);
         $this->assertEquals('C8900d40ace9ee5d64f93120330ad8872', $event->source_id);
     }
@@ -93,7 +93,7 @@ class MessageParserTest extends TestCase
 
     private function getTextMockEvent()
     {
-        $event_json = '
+        $eventJson = '
             {
                 "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
                 "type": "message",
@@ -109,12 +109,12 @@ class MessageParserTest extends TestCase
                 }
             }';
 
-        return json_decode($event_json, true);
+        return json_decode($eventJson, true);
     }
 
     private function getStickerMockEvent()
     {
-        $event_json = '
+        $eventJson = '
             {
                 "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
                 "type": "message",
@@ -131,6 +131,6 @@ class MessageParserTest extends TestCase
                 }
             }';
 
-        return json_decode($event_json, true);
+        return json_decode($eventJson, true);
     }
 }

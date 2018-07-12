@@ -22,4 +22,10 @@ abstract class TestCase extends BaseTestCase
 
         return $mock;
     }
+
+    public function bindToInterface(string $interface, $instance): void
+    {
+        $this->app->bind($interface, get_class($instance));
+        $this->app->instance(get_class($instance), $instance);
+    }
 }

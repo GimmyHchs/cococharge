@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Eloquents\Line;
 
+use App\Eloquents\Accounting\Wallet;
 use App\Eloquents\Line\FollowEvent;
 use App\Eloquents\Line\JoinEvent;
 use App\Eloquents\Line\LeaveEvent;
@@ -70,5 +71,14 @@ class LineAccountTest extends TestCase
         $account->messageEvents()->save($event);
 
         $this->assertEquals($event->id, $account->messageEvents->first()->id);
+    }
+
+    public function testHasOneWallet()
+    {
+        $account = factory(LineAccount::class)->create();
+        $wallet = factory(Wallet::class)->make();
+        $account->wallet()->save($wallet);
+
+        $this->assertEquals($wallet->id, $account->wallet->id);
     }
 }

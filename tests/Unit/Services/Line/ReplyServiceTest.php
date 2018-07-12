@@ -16,17 +16,17 @@ class ReplyServiceTest extends TestCase
 
     public function testSendText()
     {
-        $reply_token = 'mock-token';
+        $replyToken = 'mock-token';
         $message = 'mock-message';
         $response = new Response(200, 'mock-response');
         $this->mock(LineBot::class)
             ->shouldReceive('replyText')
-            ->with($reply_token, $message)
+            ->with($replyToken, $message)
             ->once()
             ->andReturn($response);
 
         $service = app(ReplyService::class);
-        $service->setToken($reply_token);
+        $service->setToken($replyToken);
         $result = $service->sendText($message);
 
         $this->assertEquals('mock-response', $result->getRawBody());

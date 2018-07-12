@@ -22,18 +22,18 @@ class LineBotTest extends TestCase
 
     public function testReplySticker()
     {
-        $mock_token = '2eb5fa7c59dc4e10a07bae00a5ca559e';
-        $mock_package_id = '1';
-        $mock_sticker_id = '1';
+        $mockToken = '2eb5fa7c59dc4e10a07bae00a5ca559e';
+        $mockPackageId = '1';
+        $mockStickerId = '1';
         $this->mock(LineClient::class)
             ->shouldReceive('post')
             ->with('https://api.line.me/v2/bot/message/reply', [
-                'replyToken' => $mock_token,
+                'replyToken' => $mockToken,
                 'messages' => [
                     [
                         'type' => 'sticker',
-                        'packageId' => $mock_package_id,
-                        'stickerId' => $mock_sticker_id,
+                        'packageId' => $mockPackageId,
+                        'stickerId' => $mockStickerId,
                     ],
                 ],
             ])
@@ -41,7 +41,7 @@ class LineBotTest extends TestCase
             ->andReturn(new Response(200, ''));
 
         $bot = app(LineBot::class);
-        $response = $bot->replySticker($mock_token, $mock_package_id, $mock_sticker_id);
+        $response = $bot->replySticker($mockToken, $mockPackageId, $mockStickerId);
 
         $this->assertEquals(200, $response->getHTTPStatus());
     }

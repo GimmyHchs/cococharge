@@ -2,7 +2,7 @@
 
 namespace App\Services\Line\WebhookParsers\MessageGenerators;
 
-use App\Contracts\Line\IMessageGenerator;
+use App\Contracts\Line\MessageGenerator;
 use App\Exceptions\Line\UndefinedMessageTypeException;
 
 class GeneratorFactory
@@ -10,9 +10,9 @@ class GeneratorFactory
     /**
      * @param string $type
      *
-     * @return IMessageGenerator
+     * @return MessageGenerator
      */
-    public static function make(string $type): IMessageGenerator
+    public static function make(string $type): MessageGenerator
     {
         switch ($type) {
             case 'text':

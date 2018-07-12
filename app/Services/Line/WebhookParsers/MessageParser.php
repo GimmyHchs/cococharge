@@ -2,51 +2,51 @@
 
 namespace App\Services\Line\WebhookParsers;
 
-use App\Contracts\Line\IMessage;
-use App\Contracts\Line\IWebhookEvent;
-use App\Contracts\Line\IWebhookParser;
+use App\Contracts\Line\Message;
+use App\Contracts\Line\WebhookEvent;
+use App\Contracts\Line\WebhookParser;
 use App\Eloquents\Line\MessageEvent;
 use App\Services\Line\WebhookParsers\MessageGenerators\GeneratorFactory;
 
-class MessageParser implements IWebhookParser
+class MessageParser implements WebhookParser
 {
     /**
      * @param array $event
-     * @param bool $is_auto_save
+     * @param bool $isAutoSave
      *
-     * @return IWebhookEvent
+     * @return WebhookEvent
      */
-    public function parse(array $event, bool $is_auto_save = false): IWebhookEvent
+    public function parse(array $event, bool $isAutoSave = false): WebhookEvent
     {
-        $source_type = array_get($event, 'source.type');
-        $source_id = array_get($event, "source.{$source_type}Id");
-        $message_event = new MessageEvent([
+        $sourceType = array_get($event, 'source.type');
+        $sourceId = array_get($event, "source.{$sourceType}Id");
+        $messageEvent = new MessageEvent([
             'type' => array_get($event, 'type'),
             'message_type' => array_get($event, 'message.type'),
             'reply_token' => array_get($event, 'replyToken'),
             'timestamp' => intval(array_get($event, 'timestamp') / 1000),
-            'source_type' => $source_type,
-            'source_id' => $source_id,
+            'source_type' => $sourceType,
+            'source_id' => $sourceId,
             'origin_data' => $event,
         ]);
 
         $message = $this->generateMessage(array_get($event, 'message'));
 
-        if ($is_auto_save) {
-            return $this->saveEventWithMessage($message_event, $message);
+        if ($isAutoSave) {
+            return $this->saveEventWithMessage($messageEvent, $message);
         }
 
-        $message_event->{$message->getReverseRelationName()} = $message;
+        $messageEvent->{$message->getReverseRelationName()} = $message;
 
-        return $message_event;
+        return $messageEvent;
     }
 
     /**
      * @param array $message
      *
-     * @return IMessage
+     * @return Message
      */
-    private function generateMessage(array $message): IMessage
+    private function generateMessage(array $message): Message
     {
         $generator = GeneratorFactory::make(array_get($message, 'type'));
 
@@ -55,16 +55,16 @@ class MessageParser implements IWebhookParser
 
     /**
      * @param MessageEvent $event
-     * @param IMessage $message
+     * @param Message $message
      *
      * @return MessageEvent
      */
-    private function saveEventWithMessage(MessageEvent $event, IMessage $message): MessageEvent
+    private function saveEventWithMessage(MessageEvent $event, Message $message): MessageEvent
     {
-        $relation_name = $message->getReverseRelationName();
+        $relationName = $message->getReverseRelationName();
         $event->save();
-        $event->{$relation_name}()->save($message);
+        $event->{$relationName}()->save($message);
 
-        return $event->load($relation_name);
+        return $event->load($relationName);
     }
 }

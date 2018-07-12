@@ -2,12 +2,12 @@
 
 namespace App\Eloquents\Line\Messages;
 
-use App\Contracts\Line\IMessage;
+use App\Contracts\Line\Message;
 use App\Eloquents\Eloquent;
 use App\Eloquents\Line\MessageEvent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class LineSticker extends Eloquent implements IMessage
+class LineSticker extends Eloquent implements Message
 {
     protected $table = 'line_message_stickers';
 

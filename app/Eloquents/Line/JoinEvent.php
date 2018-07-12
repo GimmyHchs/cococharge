@@ -2,13 +2,13 @@
 
 namespace App\Eloquents\Line;
 
-use App\Contracts\Line\IReplyableEvent;
-use App\Contracts\Line\IWebhookEvent;
+use App\Contracts\Line\ReplyableEvent;
+use App\Contracts\Line\WebhookEvent;
 use App\Eloquents\Eloquent;
 use App\Traits\Line\ReplyableEventEloquent;
 use App\Traits\Line\WebhookEventEloquent;
 
-class JoinEvent extends Eloquent implements IWebhookEvent, IReplyableEvent
+class JoinEvent extends Eloquent implements WebhookEvent, ReplyableEvent
 {
     use WebhookEventEloquent, ReplyableEventEloquent;
 

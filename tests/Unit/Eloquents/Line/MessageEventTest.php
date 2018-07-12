@@ -25,9 +25,9 @@ class MessageEventTest extends TestCase
     {
         $event = factory(MessageEvent::class)->create();
 
-        $json_array = ['a' => 'test', 'b' => 1];
+        $jsonArray = ['a' => 'test', 'b' => 1];
 
-        $event->origin_data = $json_array;
+        $event->origin_data = $jsonArray;
 
         $this->assertEquals('test', $event->origin_data->a);
         $this->assertEquals(1, $event->origin_data->b);

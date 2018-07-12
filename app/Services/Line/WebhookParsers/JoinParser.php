@@ -2,35 +2,35 @@
 
 namespace App\Services\Line\WebhookParsers;
 
-use App\Contracts\Line\IWebhookEvent;
-use App\Contracts\Line\IWebhookParser;
+use App\Contracts\Line\WebhookEvent;
+use App\Contracts\Line\WebhookParser;
 use App\Eloquents\Line\JoinEvent;
 
-class JoinParser implements IWebhookParser
+class JoinParser implements WebhookParser
 {
     /**
      * @param array $event
-     * @param bool $is_auto_save
+     * @param bool $isAutoSave
      *
-     * @return IWebhookEvent
+     * @return WebhookEvent
      */
-    public function parse(array $event, bool $is_auto_save = false): IWebhookEvent
+    public function parse(array $event, bool $isAutoSave = false): WebhookEvent
     {
-        $source_type = array_get($event, 'source.type');
-        $source_id = array_get($event, "source.{$source_type}Id");
-        $join_event = new JoinEvent([
+        $sourceType = array_get($event, 'source.type');
+        $sourceId = array_get($event, "source.{$sourceType}Id");
+        $joinEvent = new JoinEvent([
             'type' => array_get($event, 'type'),
             'reply_token' => array_get($event, 'replyToken'),
             'timestamp' => intval(array_get($event, 'timestamp') / 1000),
-            'source_type' => $source_type,
-            'source_id' => $source_id,
+            'source_type' => $sourceType,
+            'source_id' => $sourceId,
             'origin_data' => $event,
         ]);
 
-        if ($is_auto_save) {
-            $join_event->save();
+        if ($isAutoSave) {
+            $joinEvent->save();
         }
 
-        return $join_event;
+        return $joinEvent;
     }
 }

@@ -21,10 +21,10 @@ class LineTextTest extends TestCase
     public function testBelongsToMessageEvent()
     {
         $text = factory(LineText::class)->make();
-        $message_event = factory(MessageEvent::class)->create();
+        $messageEvent = factory(MessageEvent::class)->create();
 
-        $text->messageEvent()->associate($message_event)->save();
+        $text->messageEvent()->associate($messageEvent)->save();
 
-        $this->assertEquals($message_event->id, $text->messageEvent->id);
+        $this->assertEquals($messageEvent->id, $text->messageEvent->id);
     }
 }

@@ -10,14 +10,14 @@ class StickerGeneratorTest extends TestCase
 {
     public function testGenerate()
     {
-        $message_json = '
+        $messageJson = '
             {
                 "id": "325708",
                 "type": "sticker",
                 "packageId": "1",
                 "stickerId": "1"
             }';
-        $message = json_decode($message_json, true);
+        $message = json_decode($messageJson, true);
 
         $generator = app(StickerGenerator::class);
         $result = $generator->generate($message);

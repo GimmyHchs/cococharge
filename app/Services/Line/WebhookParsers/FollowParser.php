@@ -2,35 +2,35 @@
 
 namespace App\Services\Line\WebhookParsers;
 
-use App\Contracts\Line\IWebhookEvent;
-use App\Contracts\Line\IWebhookParser;
+use App\Contracts\Line\WebhookEvent;
+use App\Contracts\Line\WebhookParser;
 use App\Eloquents\Line\FollowEvent;
 
-class FollowParser implements IWebhookParser
+class FollowParser implements WebhookParser
 {
     /**
      * @param array $event
-     * @param bool $is_auto_save
+     * @param bool $isAutoSave
      *
-     * @return IWebhookEvent
+     * @return WebhookEvent
      */
-    public function parse(array $event, bool $is_auto_save = false): IWebhookEvent
+    public function parse(array $event, bool $isAutoSave = false): WebhookEvent
     {
-        $source_type = array_get($event, 'source.type');
-        $source_id = array_get($event, "source.{$source_type}Id");
-        $follow_event = new FollowEvent([
+        $sourceType = array_get($event, 'source.type');
+        $sourceId = array_get($event, "source.{$sourceType}Id");
+        $followEvent = new FollowEvent([
             'type' => array_get($event, 'type'),
             'reply_token' => array_get($event, 'replyToken'),
             'timestamp' => intval(array_get($event, 'timestamp') / 1000),
-            'source_type' => $source_type,
-            'source_id' => $source_id,
+            'source_type' => $sourceType,
+            'source_id' => $sourceId,
             'origin_data' => $event,
         ]);
 
-        if ($is_auto_save) {
-            $follow_event->save();
+        if ($isAutoSave) {
+            $followEvent->save();
         }
 
-        return $follow_event;
+        return $followEvent;
     }
 }
