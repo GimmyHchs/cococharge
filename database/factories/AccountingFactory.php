@@ -1,5 +1,6 @@
 <?php
 
+use App\Eloquents\Accounting\Category;
 use App\Eloquents\Accounting\Expense;
 use App\Eloquents\Accounting\Income;
 use App\Eloquents\Accounting\Wallet;
@@ -40,5 +41,12 @@ $factory->define(Expense::class, function (Faker $faker) {
     return [
         'wallet_id' => $wallet->id,
         'amount' => $faker->numberBetween(100000, 999999),
+    ];
+});
+
+$factory->define(Category::class, function (Faker $faker) {
+    return [
+        'name' => $faker->word,
+        'display_name' => $faker->word,
     ];
 });

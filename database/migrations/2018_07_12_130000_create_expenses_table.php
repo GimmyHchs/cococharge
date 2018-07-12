@@ -16,10 +16,15 @@ class CreateExpensesTable extends Migration
             $table->integer('wallet_id')
                 ->unsigned()
                 ->index('expenses_wallet_id');
+            $table->integer('category_id')
+                ->unsigned()
+                ->nullable()
+                ->index('expenses_category_id');
             $table->decimal('amount')->default(0.00);
             $table->timestamps();
 
             $table->foreign('wallet_id')->references('id')->on('wallets')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

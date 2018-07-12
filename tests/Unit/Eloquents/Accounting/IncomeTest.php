@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Eloquents\Accounting;
 
+use App\Eloquents\Accounting\Category;
 use App\Eloquents\Accounting\Income;
 use App\Eloquents\Accounting\Wallet;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,9 +14,9 @@ class IncomeTest extends TestCase
 
     public function testFactory()
     {
-        $wallets = factory(Income::class, 5)->create();
+        $incomes = factory(Income::class, 5)->create();
 
-        $this->assertEquals($wallets->count(), 5);
+        $this->assertEquals($incomes->count(), 5);
     }
 
     public function testBelongsToWallet()
@@ -25,5 +26,22 @@ class IncomeTest extends TestCase
         $income->wallet()->associate($wallet)->save();
 
         $this->assertEquals($wallet->id, $income->wallet->id);
+    }
+
+    public function testBelongsToCategory()
+    {
+        $income = factory(Income::class)->create();
+        $category = factory(Category::class)->create();
+
+        $income->category()->associate($category)->save();
+
+        $this->assertEquals($category->id, $income->category->id);
+    }
+
+    public function testGetCategoryType()
+    {
+        $income = factory(Income::class)->create();
+
+        $this->assertEquals(Income::CATEGORY_TYPE, $income->getCategoryType());
     }
 }

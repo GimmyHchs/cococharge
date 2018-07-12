@@ -10,10 +10,13 @@ class Expense extends Eloquent implements BillRecord
 {
     use BillRecordEloquent;
 
+    const CATEGORY_TYPE = 'expense';
+
     protected $table = 'expenses';
 
     protected $fillable = [
         'wallet_id',
+        'category_id',
         'amount',
     ];
 }

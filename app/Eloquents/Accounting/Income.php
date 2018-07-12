@@ -10,10 +10,13 @@ class Income extends Eloquent implements BillRecord
 {
     use BillRecordEloquent;
 
+    const CATEGORY_TYPE = 'income';
+
     protected $table = 'incomes';
 
     protected $fillable = [
         'wallet_id',
+        'category_id',
         'amount',
     ];
 }
