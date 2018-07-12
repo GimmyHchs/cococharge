@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/g9308370/cococharge/compare/v0.5.0...v0.6.0) (2018-07-12)
+
+
+### Bug Fixes
+
+* **config:** add missing configs ([916c542](https://github.com/g9308370/cococharge/commit/916c542))
+
+
+### Features
+
+* **accounting:** add Billing Category. ([28e38b7](https://github.com/g9308370/cococharge/commit/28e38b7))
+* **accounting:** add income&expense eloquent, migration ([bc09ef4](https://github.com/g9308370/cococharge/commit/bc09ef4))
+* **accounting:** add Wallet model & relation & migration ([77dc760](https://github.com/g9308370/cococharge/commit/77dc760))
+* **action:** reply message after account has been created. ([259d1bc](https://github.com/g9308370/cococharge/commit/259d1bc))
+* **line:** dispatch actions by ActionDispatcher after event has been parsed. ([b2a16ec](https://github.com/g9308370/cococharge/commit/b2a16ec))
+* **syntaxGate:** build action structure & logic gate ([8185a98](https://github.com/g9308370/cococharge/commit/8185a98))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/g9308370/cococharge/compare/v0.4.0...v0.5.0) (2018-06-21)
 
