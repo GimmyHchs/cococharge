@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\Services\Line\WebhookParsers\MessageGenerators;
+namespace Tests\Unit\Services\Line\WebhookParsers\MessageParsers;
 
 use App\Eloquents\Line\Messages\LineSticker;
-use App\Services\Line\WebhookParsers\MessageGenerators\StickerGenerator;
+use App\Services\Line\WebhookParsers\MessageParsers\StickerParser;
 use Tests\TestCase;
 
-class StickerGeneratorTest extends TestCase
+class StickerParserTest extends TestCase
 {
     public function testGenerate()
     {
@@ -19,8 +19,8 @@ class StickerGeneratorTest extends TestCase
             }';
         $message = json_decode($messageJson, true);
 
-        $generator = app(StickerGenerator::class);
-        $result = $generator->generate($message);
+        $parser = app(StickerParser::class);
+        $result = $parser->parse($message);
 
         $this->assertInstanceOf(LineSticker::class, $result);
         $this->assertEquals('325708', $result->message_id);

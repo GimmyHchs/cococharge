@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Services\Line\WebhookParsers\MessageGenerators;
+namespace App\Services\Line\WebhookParsers\MessageParsers;
 
-use App\Contracts\Line\MessageGenerator;
+use App\Contracts\Line\MessageParser;
 use App\Exceptions\Line\UndefinedMessageTypeException;
 
-class GeneratorFactory
+class ParserFactory
 {
     /**
      * @param string $type
      *
-     * @return MessageGenerator
+     * @return MessageParser
      */
-    public static function make(string $type): MessageGenerator
+    public static function make(string $type): MessageParser
     {
         switch ($type) {
             case 'text':
-                return app(TextGenerator::class);
+                return app(TextParser::class);
             case 'sticker':
-                return app(StickerGenerator::class);
+                return app(StickerParser::class);
             default:
                 throw new UndefinedMessageTypeException("undefined message type [{$type}]");
         }

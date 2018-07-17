@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\Services\Line\WebhookParsers\MessageGenerators;
+namespace Tests\Unit\Services\Line\WebhookParsers\MessageParsers;
 
 use App\Eloquents\Line\Messages\LineText;
-use App\Services\Line\WebhookParsers\MessageGenerators\TextGenerator;
+use App\Services\Line\WebhookParsers\MessageParsers\TextParser;
 use Tests\TestCase;
 
-class TextGeneratorTest extends TestCase
+class TextParserTest extends TestCase
 {
     public function testGenerate()
     {
@@ -18,8 +18,8 @@ class TextGeneratorTest extends TestCase
             }';
         $message = json_decode($messageJson, true);
 
-        $generator = app(TextGenerator::class);
-        $result = $generator->generate($message);
+        $parser = app(TextParser::class);
+        $result = $parser->parse($message);
 
         $this->assertInstanceOf(LineText::class, $result);
         $this->assertEquals('325708', $result->message_id);

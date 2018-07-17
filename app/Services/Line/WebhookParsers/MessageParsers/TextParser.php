@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Services\Line\WebhookParsers\MessageGenerators;
+namespace App\Services\Line\WebhookParsers\MessageParsers;
 
 use App\Contracts\Line\Message;
-use App\Contracts\Line\MessageGenerator;
+use App\Contracts\Line\MessageParser;
 use App\Eloquents\Line\Messages\LineText;
 
-class TextGenerator implements MessageGenerator
+class TextParser implements MessageParser
 {
     /**
      * @param array $message
      *
      * @return Message
      */
-    public function generate(array $message): Message
+    public function parse(array $message): Message
     {
         return new LineText([
             'message_id' => array_get($message, 'id'),

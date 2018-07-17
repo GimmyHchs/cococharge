@@ -2,12 +2,12 @@
 
 namespace App\Contracts\Line;
 
-interface MessageGenerator
+interface MessageParser
 {
     /**
      * @param array $message
      *
      * @return Message
      */
-    public function generate(array $message): Message;
+    public function parse(array $message): Message;
 }

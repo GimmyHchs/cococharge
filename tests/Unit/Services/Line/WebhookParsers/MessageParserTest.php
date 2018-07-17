@@ -5,9 +5,9 @@ namespace Tests\Unit\Services\Line\WebhookParsers;
 use App\Eloquents\Line\MessageEvent;
 use App\Eloquents\Line\Messages\LineSticker;
 use App\Eloquents\Line\Messages\LineText;
-use App\Services\Line\WebhookParsers\MessageGenerators\StickerGenerator;
-use App\Services\Line\WebhookParsers\MessageGenerators\TextGenerator;
 use App\Services\Line\WebhookParsers\MessageParser;
+use App\Services\Line\WebhookParsers\MessageParsers\StickerParser;
+use App\Services\Line\WebhookParsers\MessageParsers\TextParser;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use stdClass;
@@ -21,8 +21,8 @@ class MessageParserTest extends TestCase
     {
         $parser = app(MessageParser::class);
         $expectCarbon = Carbon::createFromTimestamp(intval(1462629479859 / 1000));
-        $this->mock(TextGenerator::class)
-            ->shouldReceive('generate')
+        $this->mock(TextParser::class)
+            ->shouldReceive('parse')
             ->once()
             ->andReturn(factory(LineText::class)->make());
 
@@ -41,8 +41,8 @@ class MessageParserTest extends TestCase
     public function testParseAndAutoSave()
     {
         $mock_text = factory(LineText::class)->make();
-        $this->mock(TextGenerator::class)
-            ->shouldReceive('generate')
+        $this->mock(TextParser::class)
+            ->shouldReceive('parse')
             ->once()
             ->andReturn($mock_text);
 
@@ -55,8 +55,8 @@ class MessageParserTest extends TestCase
     public function testParseAndAutoSaveWitRelation()
     {
         $mock_text = factory(LineText::class)->make();
-        $this->mock(TextGenerator::class)
-            ->shouldReceive('generate')
+        $this->mock(TextParser::class)
+            ->shouldReceive('parse')
             ->once()
             ->andReturn($mock_text);
 
@@ -69,8 +69,8 @@ class MessageParserTest extends TestCase
     {
         $mock_text = factory(LineText::class)->make();
         $parser = app(MessageParser::class);
-        $this->mock(TextGenerator::class)
-            ->shouldReceive('generate')
+        $this->mock(TextParser::class)
+            ->shouldReceive('parse')
             ->once()
             ->andReturn($mock_text);
 
@@ -82,8 +82,8 @@ class MessageParserTest extends TestCase
     {
         $mock_sticker = factory(LineSticker::class)->make();
         $parser = app(MessageParser::class);
-        $this->mock(StickerGenerator::class)
-            ->shouldReceive('generate')
+        $this->mock(StickerParser::class)
+            ->shouldReceive('parse')
             ->once()
             ->andReturn($mock_sticker);
 

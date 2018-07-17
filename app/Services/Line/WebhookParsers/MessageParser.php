@@ -6,7 +6,7 @@ use App\Contracts\Line\Message;
 use App\Contracts\Line\WebhookEvent;
 use App\Contracts\Line\WebhookParser;
 use App\Eloquents\Line\MessageEvent;
-use App\Services\Line\WebhookParsers\MessageGenerators\GeneratorFactory;
+use App\Services\Line\WebhookParsers\MessageParsers\ParserFactory;
 
 class MessageParser implements WebhookParser
 {
@@ -30,7 +30,7 @@ class MessageParser implements WebhookParser
             'origin_data' => $event,
         ]);
 
-        $message = $this->generateMessage(array_get($event, 'message'));
+        $message = $this->parseMessage(array_get($event, 'message'));
 
         if ($isAutoSave) {
             return $this->saveEventWithMessage($messageEvent, $message);
@@ -46,11 +46,11 @@ class MessageParser implements WebhookParser
      *
      * @return Message
      */
-    private function generateMessage(array $message): Message
+    private function parseMessage(array $message): Message
     {
-        $generator = GeneratorFactory::make(array_get($message, 'type'));
+        $generator = ParserFactory::make(array_get($message, 'type'));
 
-        return $generator->generate($message);
+        return $generator->parse($message);
     }
 
     /**
