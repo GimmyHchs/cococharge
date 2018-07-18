@@ -25,16 +25,16 @@ class InitialLineAccount implements Action
      */
     public function execute(WebhookEvent $event): void
     {
-        $line_account = LineAccount::firstOrNew([
+        $lineAccount = LineAccount::firstOrNew([
             'line_id' => $event->getSourceId(),
             'type' => $event->getSourceType(),
         ]);
 
-        if ($line_account->exists) {
+        if ($lineAccount->exists) {
             return;
         }
 
-        $line_account->save();
+        $lineAccount->save();
         $this->sendAccountCreatedMessage($event);
     }
 
