@@ -4,6 +4,7 @@ namespace App\Services\SyntaxGate;
 
 use App\Contracts\Line\ReplyableEvent;
 use App\Contracts\Line\WebhookEvent;
+use App\Services\SyntaxGate\Actions\CutSegmentation;
 use App\Services\SyntaxGate\Actions\InitialLineAccount;
 use Illuminate\Support\Collection;
 
@@ -41,6 +42,7 @@ class ActionDispatcher
     {
         if ($this->event instanceof ReplyableEvent) {
             $this->actions[] = app(InitialLineAccount::class);
+            $this->actions[] = app(CutSegmentation::class);
         }
     }
 }
