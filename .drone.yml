@@ -14,7 +14,7 @@ pipeline:
             - composer install --prefer-dist
             - php artisan key:generate
             - phpcs --standard=PSR2 -p app/ tests/ config/ routes/
-            - ./vendor/bin/phpunit -d memory_limit=512M --coverage-text=php://stdout --coverage-clover=clover.xml
+            - ./vendor/bin/phpunit -d memory_limit=1024M --coverage-text=php://stdout --coverage-clover=clover.xml
 
     codecov:
         image: robertstettner/drone-codecov
