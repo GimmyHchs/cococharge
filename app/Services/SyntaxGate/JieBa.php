@@ -9,7 +9,8 @@ class JieBa
 {
     public function __construct(array $config = [])
     {
-        BaseJieba::init(['dict' => 'big']);
+        ini_set('memory_limit', '768M');
+        BaseJieba::init(['dict' => 'small']);
         Finalseg::init();
     }
 
