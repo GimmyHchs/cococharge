@@ -4,8 +4,8 @@ namespace Tests\Unit\Services\SyntaxGate\Actions;
 
 use App\Eloquents\Line\Messages\LineText;
 use App\Services\Line\ReplyService;
+use App\Services\Segmentation\JieBa;
 use App\Services\SyntaxGate\Actions\CutSegmentation;
-use App\Services\SyntaxGate\JieBa;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,22 +16,26 @@ class CutSegmentationTest extends TestCase
     public function testExecuteWillCutSegmentation()
     {
         $text = factory(LineText::class)->states('withMessageEvent')->create([
-            'text' => '*你知道我在說什麼嗎？',
+            'text' => '*紅茶10元',
         ]);
         $event = $text->messageEvent;
         $this->mock(JieBa::class)
-            ->shouldReceive('cut')
-            ->with('你知道我在說什麼嗎？')
+            ->shouldReceive('possegCut')
+            ->with('紅茶10元')
             ->once()
             ->andReturn([
-                '你',
-                '知道',
-                '我',
-                '在',
-                '說',
-                '什麼',
-                '嗎',
-                '？',
+                [
+                    'word' => '紅茶',
+                    'tag' => 'nr',
+                ],
+                [
+                    'word' => '10',
+                    'tag' => 'm',
+                ],
+                [
+                    'word' => '元',
+                    'tag' => 'm',
+                ],
             ]);
 
         $this->mock(ReplyService::class)
@@ -39,7 +43,7 @@ class CutSegmentationTest extends TestCase
             ->with($text->messageEvent->getReplyToken())
             ->once()
             ->shouldReceive('sendText')
-            ->with('你, 知道, 我, 在, 說, 什麼, 嗎, ？')
+            ->with('紅茶nr, 10m, 元m')
             ->once();
 
         $action = app(CutSegmentation::class);

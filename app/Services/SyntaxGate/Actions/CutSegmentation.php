@@ -5,9 +5,9 @@ namespace App\Services\SyntaxGate\Actions;
 use App\Contracts\Line\ReplyableEvent;
 use App\Contracts\Line\WebhookEvent;
 use App\Contracts\SyntaxGate\Action;
-use App\Services\SyntaxGate\JieBa;
 use App\Helpers\KeySignHelper;
 use App\Services\Line\ReplyService;
+use App\Services\Segmentation\JieBa;
 
 class CutSegmentation implements Action
 {
@@ -37,7 +37,7 @@ class CutSegmentation implements Action
             return;
         }
 
-        $segmentationList = $this->jieBa->cut(KeySignHelper::cutTriggerSign($messageContent));
+        $segmentationList = $this->jieBa->possegCut(KeySignHelper::cutTriggerSign($messageContent));
         $this->sendSegmentationMessage($event, $segmentationList);
     }
 
@@ -46,6 +46,9 @@ class CutSegmentation implements Action
      */
     private function sendSegmentationMessage(ReplyableEvent $event, array $segmentationList): void
     {
+        $segmentationList = array_map(function ($segmentation) {
+            return implode($segmentation);
+        }, $segmentationList);
         $this->replyService->setToken($event->getReplyToken());
         $message = implode($segmentationList, ', ');
         $this->replyService->sendText($message);
