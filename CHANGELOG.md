@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/g9308370/cococharge/compare/v0.6.0...v0.7.0) (2018-08-10)
+
+
+### Bug Fixes
+
+* **drone:** set memory_limit to 1024M when unittest ([37291ae](https://github.com/g9308370/cococharge/commit/37291ae))
+* **jieba:** enhance memory limit ([975abf5](https://github.com/g9308370/cococharge/commit/975abf5))
+
+
+### Features
+
+* **accounting:** add WalletManager ([cd1ea33](https://github.com/g9308370/cococharge/commit/cd1ea33))
+* **jieba:** add CutSegmentation action ([e8c62e3](https://github.com/g9308370/cococharge/commit/e8c62e3))
+* **jieba:** add segmentation tag ([7f770e3](https://github.com/g9308370/cococharge/commit/7f770e3))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/g9308370/cococharge/compare/v0.5.0...v0.6.0) (2018-07-12)
 
