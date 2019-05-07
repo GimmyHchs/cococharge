@@ -74,7 +74,7 @@ pipeline:
         host: 209.97.168.149
         username: root
         command_timeout: 300
-        secrets: [ plugin_ssh_key, docker_username, docker_password ]
+        secrets: [ ssh_key, docker_username, docker_password ]
         envs: [ docker_username, docker_password ]
         script:
             - docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"

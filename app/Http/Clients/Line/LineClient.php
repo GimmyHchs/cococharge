@@ -17,6 +17,7 @@ class LineClient implements HttpClient
 
     public function __construct($guzzleConfig = [])
     {
+
         $this->initGuzzle($guzzleConfig);
     }
 
